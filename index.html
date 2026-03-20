@@ -683,17 +683,9 @@
               <td id="joyceNet">$5,211</td>
               <td id="joyceMo">$434</td>
             </tr>
-            <tr>
-              <td>CDs (Maturing May 2026)<br><span class="tax-note">Joint &mdash; interest taxed as ordinary income</span></td>
-              <td>$80,000</td>
-              <td id="cdGross">$4,000</td>
-              <td>22%</td>
-              <td id="cdNet">$3,120</td>
-              <td id="cdMo">$260</td>
-            </tr>
             <tr class="total-row">
               <td>TOTAL</td>
-              <td>$932,318</td>
+              <td>$852,318</td>
               <td id="totalGross">$45,475</td>
               <td></td>
               <td id="totalNet">$37,636</td>
@@ -756,17 +748,6 @@
         </div>
       </div>
 
-      <div class="strategy-item">
-        <div class="strategy-rank">5</div>
-        <div class="strategy-content">
-          <div class="strategy-name">CDs (Maturing May 2026) &mdash; $80,000</div>
-          <div class="strategy-detail">
-            Several small CDs maturing May 2026. Reinvest at current CD rates or redeploy into
-            higher-yielding strategy. Interest taxed as ordinary income.
-          </div>
-          <span class="strategy-tag tag-good">Maturing Soon &mdash; Flexible</span>
-        </div>
-      </div>
     </div>
 
     <!-- Callout -->
@@ -971,6 +952,10 @@
           <div class="reserve-label">529 Plan (Grandkids)</div>
         </div>
         <div class="reserve-item incoming">
+          <div class="reserve-value">$80,000</div>
+          <div class="reserve-label">CDs (Inherited, Maturing May)</div>
+        </div>
+        <div class="reserve-item incoming">
           <div class="reserve-value">$217,000</div>
           <div class="reserve-label">WF Inheritance (Incoming)</div>
         </div>
@@ -981,7 +966,7 @@
       </div>
       <div class="reserve-total">
         <div class="reserve-total-label">Total Liquid Reserves</div>
-        <div class="reserve-total-value">$760,000+</div>
+        <div class="reserve-total-value">$840,000+</div>
         <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
           Separate from income-generating accounts. This is your cushion.
         </div>
@@ -1031,6 +1016,15 @@
           <div class="strategy-name">529 Plan &mdash; $123,000</div>
           <div class="strategy-detail">
             Earmarked for grandchildren's education. Not part of retirement income.
+          </div>
+        </div>
+      </div>
+      <div class="strategy-item">
+        <div class="strategy-rank" style="background:var(--rpi-blue);">&#x2713;</div>
+        <div class="strategy-content">
+          <div class="strategy-name">CDs (Inherited) &mdash; $80,000</div>
+          <div class="strategy-detail">
+            Several small CDs maturing May 2026 from Joyce's mother. Will convert to cash upon maturity.
           </div>
         </div>
       </div>
@@ -1091,8 +1085,7 @@
   var SLIDER_ACCOUNTS = [
     { id: 'roth',  value: 196887, taxRate: 0.00 },
     { id: 'na',    value: 426802, taxRate: 0.22 },
-    { id: 'joyce', value: 133629, taxRate: 0.22 },
-    { id: 'cd',    value: 80000,  taxRate: 0.22 }
+    { id: 'joyce', value: 133629, taxRate: 0.22 }
   ];
 
   var BASE_NET_MO = 8910;
@@ -1182,12 +1175,12 @@
       callout.innerHTML = 'At ' + ratePct + '% return, five accounts generate <strong>' + fmt(totalMo) +
         '/mo</strong> in sustainable income without touching principal.' +
         (deltaMo > 10 ? ' That exceeds the $6,608/mo MHP gap by <strong>' + fmt(deltaMo) + '/mo</strong>.' : '') +
-        ' On top of that, you have <strong>$760,000+</strong> in liquid reserves sitting untouched as a safety net.' +
+        ' On top of that, you have <strong>$840,000+</strong> in liquid reserves sitting untouched as a safety net.' +
         ' This is BEFORE the Nassau GMIB activates.';
     } else {
       callout.innerHTML = 'At ' + ratePct + '% return, five accounts generate <strong>' + fmt(totalMo) +
         '/mo</strong> \u2014 short of the $6,608/mo gap by <strong>' + fmt(Math.abs(deltaMo)) +
-        '/mo</strong>. That small difference is easily covered by your <strong>$760,000+ in liquid reserves</strong>.' +
+        '/mo</strong>. That small difference is easily covered by your <strong>$840,000+ in liquid reserves</strong>.' +
         ' You\'d need just ' + (be * 100).toFixed(1) + '% to fully cover the gap from earnings alone.';
     }
   }
