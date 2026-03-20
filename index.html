@@ -64,32 +64,16 @@
     letter-spacing: 1.5px; color: var(--rpi-blue); margin-bottom: 14px;
   }
 
-  /* Slider */
   .slider-section { text-align: center; }
-  .rate-display {
-    font-size: 48px; font-weight: 800; color: var(--navy);
-    line-height: 1; margin-bottom: 4px;
-  }
+  .rate-display { font-size: 48px; font-weight: 800; color: var(--navy); line-height: 1; margin-bottom: 4px; }
   .rate-display span { font-size: 28px; font-weight: 600; }
   .rate-label { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
   .slider-wrap { padding: 0 10px; }
-  input[type="range"] {
-    -webkit-appearance: none; width: 100%; height: 8px;
-    border-radius: 4px; background: var(--pale-blue); outline: none;
-  }
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; width: 28px; height: 28px;
-    border-radius: 50%; background: var(--navy); cursor: pointer;
-    border: 3px solid var(--white); box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  }
+  input[type="range"] { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 4px; background: var(--pale-blue); outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: var(--navy); cursor: pointer; border: 3px solid var(--white); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
   .slider-range { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 
-  /* Delta Banner */
-  .delta-banner {
-    border-radius: 10px; padding: 16px 20px;
-    margin-bottom: 16px; text-align: center;
-    transition: all 0.3s ease;
-  }
+  .delta-banner { border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; text-align: center; transition: all 0.3s ease; }
   .delta-banner.surplus { background: var(--green-light); border: 2px solid var(--green); }
   .delta-banner.deficit { background: var(--red-light); border: 2px solid var(--red); }
   .delta-banner.neutral { background: var(--pale-blue-soft); border: 2px solid var(--rpi-blue); }
@@ -103,7 +87,6 @@
   .delta-banner.neutral .delta-value { color: var(--navy); }
   .delta-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-  /* Income Comparison */
   .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
   .comp-box { border-radius: 8px; padding: 14px; text-align: center; }
   .comp-box.current { background: var(--pale-blue); border: 2px solid var(--rpi-blue); }
@@ -118,123 +101,69 @@
   .comp-box.current .comp-detail { color: var(--text-muted); }
   .comp-box.replacement .comp-detail { color: rgba(255,255,255,0.7); }
 
-  /* Account Table */
-  .acct-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .acct-table thead th {
-    background: var(--navy); color: var(--white); padding: 8px 10px;
-    font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
-    text-align: right;
-  }
-  .acct-table thead th:first-child { text-align: left; border-radius: 6px 0 0 0; }
-  .acct-table thead th:last-child { border-radius: 0 6px 0 0; }
-  .acct-table tbody td {
-    padding: 10px 10px; text-align: right;
-    border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums;
-  }
-  .acct-table tbody td:first-child { text-align: left; font-weight: 600; color: var(--text-secondary); }
-  .acct-table tbody tr:nth-child(even) { background: var(--bg-light); }
-  .acct-table tbody tr.total-row { background: var(--pale-blue-soft); }
-  .acct-table tbody tr.total-row td { font-weight: 800; color: var(--navy); border-top: 2px solid var(--rpi-blue); }
-  .acct-table .tax-free { color: var(--green); font-weight: 700; }
-  .acct-table .tax-note { font-size: 10px; color: var(--text-muted); font-weight: 400; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tbl thead th { background: var(--navy); color: var(--white); padding: 8px 10px; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; text-align: right; }
+  .tbl thead th:first-child { text-align: left; border-radius: 6px 0 0 0; }
+  .tbl thead th:last-child { border-radius: 0 6px 0 0; }
+  .tbl tbody td { padding: 10px 10px; text-align: right; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  .tbl tbody td:first-child { text-align: left; font-weight: 600; color: var(--text-secondary); }
+  .tbl tbody tr:nth-child(even) { background: var(--bg-light); }
+  .tbl tbody tr.total-row { background: var(--pale-blue-soft); }
+  .tbl tbody tr.total-row td { font-weight: 800; color: var(--navy); border-top: 2px solid var(--rpi-blue); }
+  .tbl .tax-free { color: var(--green); font-weight: 700; }
+  .tbl .tax-note { font-size: 10px; color: var(--text-muted); font-weight: 400; }
+  .tbl tbody tr.mhp-row { background: var(--red-light); }
+  .tbl tbody tr.mhp-row td { color: var(--red); text-decoration: line-through; text-decoration-thickness: 2px; }
+  .tbl tbody tr.mhp-row td:first-child { text-decoration: none; }
+  .tbl tbody tr.subtotal-row { background: var(--pale-blue-soft); }
+  .tbl tbody tr.subtotal-row td { font-weight: 800; color: var(--navy); border-top: 2px solid var(--rpi-blue); }
+  .tbl tbody tr.posthp-row { background: var(--green-light); }
+  .tbl tbody tr.posthp-row td { font-weight: 800; color: var(--green); border-top: 2px solid var(--green); }
+  .income-type { font-size: 10px; color: var(--text-muted); font-weight: 400; }
+  .tbl tbody tr.mhp-row .income-type { color: var(--red); opacity: 0.7; }
+  .mhp-badge { display: inline-block; font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 6px; border-radius: 3px; background: var(--red); color: var(--white); margin-left: 6px; vertical-align: middle; text-decoration: none; }
 
-  /* Strategy Notes */
-  .strategy-item {
-    display: flex; gap: 12px; padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-  }
+  .reserve-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .reserve-item { border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; background: var(--white); }
+  .reserve-item.incoming { border-color: var(--gold); background: #faf6ed; }
+  .reserve-item.pending { border-color: var(--text-muted); border-style: dashed; }
+  .reserve-value { font-size: 20px; font-weight: 800; color: var(--navy); }
+  .reserve-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-top: 2px; }
+  .reserve-item.incoming .reserve-label { color: var(--gold); }
+  .reserve-total { text-align: center; margin-top: 12px; padding: 10px; background: var(--pale-blue-soft); border-radius: 6px; }
+  .reserve-total-value { font-size: 28px; font-weight: 800; color: var(--navy); }
+  .reserve-total-label { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+
+  .strategy-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
   .strategy-item:last-child { border-bottom: none; }
-  .strategy-rank {
-    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
-    background: var(--navy); color: var(--gold); font-size: 13px;
-    font-weight: 800; display: flex; align-items: center; justify-content: center;
-  }
+  .strategy-rank { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: var(--gold); font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
   .strategy-content { flex: 1; }
   .strategy-name { font-size: 14px; font-weight: 700; color: var(--navy); }
   .strategy-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-top: 2px; }
-  .strategy-tag {
-    display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.5px; padding: 2px 6px; border-radius: 3px; margin-top: 4px;
-  }
+  .strategy-tag { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 6px; border-radius: 3px; margin-top: 4px; }
   .tag-best { background: var(--green-light); color: var(--green); border: 1px solid var(--green); }
   .tag-good { background: var(--pale-blue-soft); color: var(--rpi-blue); border: 1px solid var(--rpi-blue); }
   .tag-caution { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
   .tag-power { background: #faf5ff; color: #7c3aed; border: 1px solid #a78bfa; }
 
-  /* Breakeven indicator */
-  .breakeven-line {
-    text-align: center; padding: 8px; font-size: 12px; color: var(--text-muted);
-    border-top: 1px dashed var(--border); margin-top: 4px;
-  }
-  .breakeven-line strong { color: var(--navy); }
-
-  /* Bar visualization */
-  .bar-section { margin-bottom: 16px; }
-  .bar-row { margin-bottom: 10px; }
-  .bar-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px; }
-  .bar-label-name { font-weight: 600; color: var(--text-secondary); }
-  .bar-label-value { font-weight: 700; color: var(--navy); }
-  .bar-track { height: 24px; background: var(--pale-blue); border-radius: 6px; position: relative; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 6px; transition: width 0.4s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; }
-  .bar-fill.income { background: linear-gradient(90deg, var(--rpi-blue), var(--navy)); }
-  .bar-fill.replacement { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
-  .bar-fill.expenses { background: linear-gradient(90deg, #ef4444, #f87171); }
-  .bar-pct { font-size: 10px; font-weight: 700; color: white; }
-
-  .footer {
-    text-align: center; padding: 16px; font-size: 10px; color: var(--text-muted);
-    border-top: 1px solid var(--border); margin-top: 8px;
-  }
-  .footer strong { color: var(--navy); }
-
-  .callout {
-    background: var(--navy); color: var(--white); border-radius: 8px;
-    padding: 14px 18px; margin-bottom: 16px;
-    border-left: 4px solid var(--gold);
-  }
+  .callout { background: var(--navy); color: var(--white); border-radius: 8px; padding: 14px 18px; margin-bottom: 16px; border-left: 4px solid var(--gold); }
   .callout h3 { font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 4px; }
   .callout p { font-size: 12px; line-height: 1.55; color: rgba(255,255,255,0.9); }
 
-  /* Income Sources Table */
-  .income-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .income-table thead th {
-    background: var(--navy); color: var(--white); padding: 8px 10px;
-    font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
-    text-align: right;
-  }
-  .income-table thead th:first-child { text-align: left; border-radius: 6px 0 0 0; }
-  .income-table thead th:last-child { border-radius: 0 6px 0 0; }
-  .income-table tbody td {
-    padding: 10px 10px; text-align: right;
-    border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums;
-  }
-  .income-table tbody td:first-child { text-align: left; font-weight: 600; color: var(--text-secondary); }
-  .income-table tbody tr:nth-child(even) { background: var(--bg-light); }
-  .income-table tbody tr.mhp-row { background: var(--red-light); position: relative; }
-  .income-table tbody tr.mhp-row td { color: var(--red); text-decoration: line-through; text-decoration-thickness: 2px; }
-  .income-table tbody tr.mhp-row td:first-child { text-decoration: none; }
-  .income-table tbody tr.mhp-row td .mhp-badge {
-    display: inline-block; font-size: 8px; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.5px; padding: 2px 6px; border-radius: 3px;
-    background: var(--red); color: var(--white); margin-left: 6px; vertical-align: middle;
-    text-decoration: none;
-  }
-  .income-table tbody tr.subtotal-row { background: var(--pale-blue-soft); }
-  .income-table tbody tr.subtotal-row td { font-weight: 800; color: var(--navy); border-top: 2px solid var(--rpi-blue); }
-  .income-table tbody tr.posthp-row { background: var(--green-light); }
-  .income-table tbody tr.posthp-row td { font-weight: 800; color: var(--green); border-top: 2px solid var(--green); }
-  .income-type { font-size: 10px; color: var(--text-muted); font-weight: 400; }
-  .income-table tbody tr.mhp-row .income-type { color: var(--red); opacity: 0.7; }
+  .breakeven-line { text-align: center; padding: 8px; font-size: 12px; color: var(--text-muted); border-top: 1px dashed var(--border); margin-top: 4px; }
+  .breakeven-line strong { color: var(--navy); }
+
+  .footer { text-align: center; padding: 16px; font-size: 10px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 8px; }
+  .footer strong { color: var(--navy); }
 
   @media (max-width: 600px) {
     .comparison-grid { grid-template-columns: 1fr; }
     .rate-display { font-size: 40px; }
     .delta-value { font-size: 26px; }
     .comp-box .comp-value { font-size: 22px; }
-    .acct-table { font-size: 11px; }
-    .acct-table thead th, .acct-table tbody td { padding: 7px 6px; }
-    .income-table { font-size: 11px; }
-    .income-table thead th, .income-table tbody td { padding: 7px 6px; }
+    .tbl { font-size: 11px; }
+    .tbl thead th, .tbl tbody td { padding: 7px 6px; }
+    .reserve-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -249,6 +178,45 @@
     <div class="header-client">Stephen &amp; Joyce Mineart</div>
   </div>
 
+  <!-- Current Retirement Income Sources -->
+  <div class="card">
+    <div class="card-title">Current Retirement Income Sources</div>
+    <table class="tbl">
+      <thead>
+        <tr><th>Source</th><th>Owner</th><th>Gross/Mo</th><th>Withholdings</th><th>NET/Mo</th><th>NET/Yr</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Social Security<br><span class="income-type">US Treasury &mdash; Provisional income</span></td>
+          <td>Stephen</td><td>$4,428</td><td>15% fed</td><td>$3,764</td><td>$45,168</td>
+        </tr>
+        <tr class="mhp-row">
+          <td>Mahaska Health<span class="mhp-badge">Retiring</span><br><span class="income-type">Earned income &mdash; Ordinary</span></td>
+          <td>Stephen</td><td>$4,011</td><td>20% fed + 3% state</td><td>$3,088</td><td>$37,056</td>
+        </tr>
+        <tr>
+          <td>IPERS Pension<br><span class="income-type">State pension &mdash; Ordinary income (IA exempt)</span></td>
+          <td>Stephen</td><td>$4,323</td><td>15% fed + 4% state</td><td>$3,502</td><td>$42,024</td>
+        </tr>
+        <tr>
+          <td>Social Security<br><span class="income-type">US Treasury &mdash; Provisional income</span></td>
+          <td>Joyce</td><td>$1,934</td><td>15% fed</td><td>$1,644</td><td>$19,728</td>
+        </tr>
+        <tr class="subtotal-row">
+          <td>Current Total (with MHP)</td><td></td><td>$14,696</td><td></td><td>$11,998</td><td>$143,976</td>
+        </tr>
+        <tr class="posthp-row">
+          <td>Post-Retirement Total (no MHP)</td><td></td><td>$10,685</td><td></td><td>$8,910</td><td>$106,920</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align:center; margin-top:12px; padding:10px; background:var(--red-light); border-radius:6px; border:1px solid var(--red);">
+      <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--red);">Income Gap When Stephen Retires from Mahaska Health</div>
+      <div style="font-size:28px; font-weight:800; color:var(--red); line-height:1.1;">-$3,088/mo</div>
+      <div style="font-size:12px; color:var(--text-muted);">-$37,056/yr &mdash; This is the gap we need to fill</div>
+    </div>
+  </div>
+
   <!-- Rate of Return Slider -->
   <div class="card slider-section">
     <div class="rate-display"><span id="rateValue">5.0</span><span>%</span></div>
@@ -257,16 +225,14 @@
       <input type="range" id="rateSlider" min="0" max="100" value="50" step="1">
       <div class="slider-range"><span>0%</span><span>2.5%</span><span>5%</span><span>7.5%</span><span>10%</span></div>
     </div>
-    <div class="breakeven-line" id="breakevenLine">
-      Breakeven rate to cover MHP gap: <strong id="breakevenRate">—</strong>
-    </div>
+    <div class="breakeven-line">Breakeven rate to cover MHP gap: <strong id="breakevenRate">&mdash;</strong></div>
   </div>
 
   <!-- Delta Banner -->
   <div class="delta-banner surplus" id="deltaBanner">
     <div class="delta-label" id="deltaLabel">Monthly Surplus After Replacing MHP Income</div>
     <div class="delta-value" id="deltaValue">+$204/mo</div>
-    <div class="delta-sub" id="deltaSub">$2,448/yr — without touching principal</div>
+    <div class="delta-sub" id="deltaSub">without touching principal</div>
   </div>
 
   <!-- Income Comparison Boxes -->
@@ -274,150 +240,23 @@
     <div class="comp-box current">
       <div class="comp-label">Current Net Income (with MHP)</div>
       <div class="comp-value">$11,998<span style="font-size:14px;">/mo</span></div>
-      <div class="comp-detail">$143,976/yr — SS + MHP + IPERS</div>
+      <div class="comp-detail">$143,976/yr &mdash; SS + MHP + IPERS</div>
     </div>
     <div class="comp-box replacement">
       <div class="comp-label">Post-Retirement + Withdrawals</div>
       <div class="comp-value" id="replacementValue">$12,202<span style="font-size:14px;">/mo</span></div>
-      <div class="comp-detail" id="replacementDetail">$146,424/yr — SS + IPERS + Portfolio</div>
-    </div>
-  </div>
-
-  <!-- Current Retirement Income Sources -->
-  <div class="card">
-    <div class="card-title">Current Retirement Income Sources</div>
-    <table class="income-table">
-      <thead>
-        <tr>
-          <th>Source</th>
-          <th>Owner</th>
-          <th>Gross/Mo</th>
-          <th>Withholdings</th>
-          <th>NET/Mo</th>
-          <th>NET/Yr</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Social Security<br><span class="income-type">US Treasury &mdash; Provisional income</span></td>
-          <td>Stephen</td>
-          <td>$4,428</td>
-          <td>15% fed</td>
-          <td>$3,764</td>
-          <td>$45,168</td>
-        </tr>
-        <tr class="mhp-row">
-          <td>Mahaska Health<span class="mhp-badge">Retiring</span><br><span class="income-type">Earned income &mdash; Ordinary</span></td>
-          <td>Stephen</td>
-          <td>$4,011</td>
-          <td>20% fed + 3% state</td>
-          <td>$3,088</td>
-          <td>$37,056</td>
-        </tr>
-        <tr>
-          <td>IPERS Pension<br><span class="income-type">State pension &mdash; Ordinary income (IA exempt)</span></td>
-          <td>Stephen</td>
-          <td>$4,323</td>
-          <td>15% fed + 4% state</td>
-          <td>$3,502</td>
-          <td>$42,024</td>
-        </tr>
-        <tr>
-          <td>Social Security<br><span class="income-type">US Treasury &mdash; Provisional income</span></td>
-          <td>Joyce</td>
-          <td>$1,934</td>
-          <td>15% fed</td>
-          <td>$1,644</td>
-          <td>$19,728</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td>Current Total (with MHP)</td>
-          <td></td>
-          <td>$14,696</td>
-          <td></td>
-          <td>$11,998</td>
-          <td>$143,976</td>
-        </tr>
-        <tr class="posthp-row">
-          <td>Post-Retirement Total (no MHP)</td>
-          <td></td>
-          <td>$10,685</td>
-          <td></td>
-          <td>$8,910</td>
-          <td>$106,920</td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="text-align: center; margin-top: 12px; padding: 10px; background: var(--red-light); border-radius: 6px; border: 1px solid var(--red);">
-      <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--red);">Income Gap When Stephen Retires from Mahaska Health</div>
-      <div style="font-size: 28px; font-weight: 800; color: var(--red); line-height: 1.1;">-$3,088/mo</div>
-      <div style="font-size: 12px; color: var(--text-muted);">-$37,056/yr &mdash; This is the gap we need to fill</div>
-    </div>
-  </div>
-
-  <!-- Visual Bars -->
-  <div class="card">
-    <div class="card-title">Income vs. Expenses</div>
-    <div class="bar-section">
-      <div class="bar-row">
-        <div class="bar-label">
-          <span class="bar-label-name">Base Retirement Income (no MHP)</span>
-          <span class="bar-label-value">$8,910/mo</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill income" id="barBase" style="width: 74.3%;">
-            <span class="bar-pct">74%</span>
-          </div>
-        </div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">
-          <span class="bar-label-name" id="withdrawalLabel">+ Portfolio Withdrawals (at 5.0%)</span>
-          <span class="bar-label-value" id="withdrawalBarValue">$3,292/mo</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill replacement" id="barWithdrawal" style="width: 27.4%;">
-            <span class="bar-pct" id="barWithdrawalPct">27%</span>
-          </div>
-        </div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">
-          <span class="bar-label-name">Household Expenses</span>
-          <span class="bar-label-value">$8,998/mo</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill expenses" style="width: 75%;">
-            <span class="bar-pct">$107,980/yr</span>
-          </div>
-        </div>
-      </div>
+      <div class="comp-detail" id="replacementDetail">$146,424/yr &mdash; SS + IPERS + Portfolio</div>
     </div>
   </div>
 
   <!-- Account Detail Table -->
   <div class="card">
-    <div class="card-title">Sustainable Withdrawal Detail — Earnings Only, Principal Intact</div>
-    <table class="acct-table">
+    <div class="card-title">Sustainable Withdrawal Detail &mdash; Earnings Only, Principal Intact</div>
+    <table class="tbl">
       <thead>
-        <tr>
-          <th>Account</th>
-          <th>Value</th>
-          <th>Annual Yield</th>
-          <th>Tax</th>
-          <th>NET/yr</th>
-          <th>NET/mo</th>
-        </tr>
+        <tr><th>Account</th><th>Value</th><th>Annual Yield</th><th>Tax</th><th>NET/yr</th><th>NET/mo</th></tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Joyce Schwab IRA<br><span class="tax-note">Trad IRA — 22% fed, IA exempt</span></td>
-          <td>$133,629</td>
-          <td id="joyceGross">$6,681</td>
-          <td>22%</td>
-          <td id="joyceNet">$5,211</td>
-          <td id="joyceMo">$434</td>
-        </tr>
         <tr>
           <td>Stephen Schwab Roth<br><span class="tax-note tax-free">Tax-Free &mdash; no federal, no state</span></td>
           <td>$196,887</td>
@@ -427,46 +266,100 @@
           <td id="rothMo" class="tax-free">$820</td>
         </tr>
         <tr>
-          <td>Edward Jones NQ<br><span class="tax-note">Joint brokerage — 22% fed on income</span></td>
-          <td>$200,000</td>
-          <td id="ejGross">$10,000</td>
+          <td>Edward Jones NQ<br><span class="tax-note">Joint brokerage &mdash; confirmed 3.8% yield</span></td>
+          <td>$95,000</td>
+          <td id="ejGross">$3,610</td>
           <td>22%</td>
-          <td id="ejNet">$7,800</td>
-          <td id="ejMo">$650</td>
+          <td id="ejNet">$2,816</td>
+          <td id="ejMo">$235</td>
         </tr>
         <tr>
-          <td>North American NQ<br><span class="tax-note">VersaChoice10 — 10% free corridor</span></td>
+          <td>North American NQ<br><span class="tax-note">VersaChoice10 &mdash; 10% free corridor (~$42K/yr)</span></td>
           <td>$426,802</td>
           <td id="naGross">$21,340</td>
           <td>22%</td>
           <td id="naNet">$16,645</td>
           <td id="naMo">$1,387</td>
         </tr>
+        <tr>
+          <td>Joyce Schwab IRA<br><span class="tax-note">Trad IRA &mdash; 22% fed, IA exempt. RMDs start at 73 (2029)</span></td>
+          <td>$133,629</td>
+          <td id="joyceGross">$6,681</td>
+          <td>22%</td>
+          <td id="joyceNet">$5,211</td>
+          <td id="joyceMo">$434</td>
+        </tr>
+        <tr>
+          <td>CDs (Maturing May 2026)<br><span class="tax-note">Joint &mdash; interest taxed as ordinary income</span></td>
+          <td>$80,000</td>
+          <td id="cdGross">$4,000</td>
+          <td>22%</td>
+          <td id="cdNet">$3,120</td>
+          <td id="cdMo">$260</td>
+        </tr>
         <tr class="total-row">
           <td>TOTAL</td>
-          <td>$957,318</td>
-          <td id="totalGross">$47,866</td>
+          <td>$932,318</td>
+          <td id="totalGross">$45,475</td>
           <td></td>
-          <td id="totalNet">$39,501</td>
-          <td id="totalMo">$3,292</td>
+          <td id="totalNet">$37,636</td>
+          <td id="totalMo">$3,136</td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <!-- Reserves Section -->
+  <div class="card">
+    <div class="card-title">Liquid Reserves &mdash; Your Safety Net (Not Needed for Income)</div>
+    <div class="reserve-grid">
+      <div class="reserve-item">
+        <div class="reserve-value">$30,000</div>
+        <div class="reserve-label">Checking #1</div>
+      </div>
+      <div class="reserve-item">
+        <div class="reserve-value">$30,000</div>
+        <div class="reserve-label">Checking #2</div>
+      </div>
+      <div class="reserve-item">
+        <div class="reserve-value">$110,000</div>
+        <div class="reserve-label">Savings</div>
+      </div>
+      <div class="reserve-item">
+        <div class="reserve-value">$50,000</div>
+        <div class="reserve-label">HSA</div>
+      </div>
+      <div class="reserve-item incoming">
+        <div class="reserve-value">$217,000</div>
+        <div class="reserve-label">WF Inheritance (Next Week)</div>
+      </div>
+      <div class="reserve-item pending">
+        <div class="reserve-value">~$200,000</div>
+        <div class="reserve-label">RiverSource (Pending)</div>
+      </div>
+    </div>
+    <div class="reserve-total">
+      <div class="reserve-total-label">Total Liquid Reserves</div>
+      <div class="reserve-total-value">$637,000+</div>
+      <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
+        Untouched. Separate from income-generating accounts. This is your cushion.
+      </div>
+    </div>
+  </div>
+
   <!-- Callout -->
   <div class="callout">
-    <h3>The Bottom Line</h3>
+    <h3>The Full Picture</h3>
     <p id="calloutText">
-      At 5.0% return, these four accounts generate $3,292/mo in sustainable income without touching principal.
-      That exceeds the $3,088/mo MHP gap by $204/mo. Stephen can retire from Mahaska Health
-      and your lifestyle doesn't change.
+      At 5.0% return, five accounts generate sustainable income to replace Mahaska Health &mdash;
+      without touching principal. On top of that, you have $637,000+ in liquid reserves
+      sitting untouched as a safety net. This is BEFORE the Nassau GMIB activates.
     </p>
   </div>
 
   <!-- Strategy Recommendations -->
   <div class="card">
-    <div class="card-title">Withdrawal Priority — What to Take and Why</div>
+    <div class="card-title">Withdrawal Priority &mdash; What to Take and Why</div>
 
     <div class="strategy-item">
       <div class="strategy-rank">1</div>
@@ -474,8 +367,7 @@
         <div class="strategy-name">Schwab Roth IRA &mdash; $196,887</div>
         <div class="strategy-detail">
           Best first dollar. Every withdrawal is <strong>100% tax-free</strong> &mdash; no federal, no state, no bracket impact.
-          Stephen is 71, fully eligible, no penalties. Doesn't increase your taxable income, won't push you into a higher bracket,
-          and won't trigger additional Social Security taxation.
+          Stephen is 71, fully eligible. Won't trigger additional Social Security taxation.
         </div>
         <span class="strategy-tag tag-best">Best First Dollar &mdash; Tax Free</span>
       </div>
@@ -484,40 +376,48 @@
     <div class="strategy-item">
       <div class="strategy-rank">2</div>
       <div class="strategy-content">
-        <div class="strategy-name">Edward Jones NQ Brokerage &mdash; $200,000</div>
+        <div class="strategy-name">Edward Jones NQ Brokerage &mdash; $95,000</div>
         <div class="strategy-detail">
-          Joint account, commission-based, fixed income portfolio. Only the <strong>gain portion</strong> is taxable &mdash;
-          cost basis comes out tax-free. The fixed income holdings likely generate natural dividends and interest,
-          reducing the need to sell positions. Minimal tax drag compared to IRA distributions.
+          Joint account at <strong>3.8% confirmed yield</strong>. Fixed income portfolio generates natural dividends and interest.
+          Only the gain portion is taxable. Minimal tax drag.
         </div>
-        <span class="strategy-tag tag-good">Good Second Dollar &mdash; Favorable Tax</span>
+        <span class="strategy-tag tag-good">Confirmed 3.8% &mdash; Favorable Tax</span>
       </div>
     </div>
 
     <div class="strategy-item">
       <div class="strategy-rank">3</div>
       <div class="strategy-content">
-        <div class="strategy-name">Joyce Schwab IRA &mdash; $133,629</div>
+        <div class="strategy-name">North American VersaChoice10 &mdash; $426,802</div>
         <div class="strategy-detail">
-          Traditional IRA &mdash; every dollar withdrawn is ordinary income taxed at 22% federal (Iowa exempt).
-          Joyce is 70, no early withdrawal penalty. Better to defer until <strong>RMDs start at age 73 (2029)</strong>
-          since she'll be forced to take distributions then anyway. RMD at 73: approximately $5,042/yr ($420/mo).
+          NQ fixed indexed annuity, issued July 2024. <strong>10% free withdrawal corridor</strong> allows up to ~$42,680/yr penalty-free.
+          Our sustainable draw is well within that. Largest income engine.
         </div>
-        <span class="strategy-tag tag-caution">Save for RMDs &mdash; Fully Taxable</span>
+        <span class="strategy-tag tag-power">Largest Engine &mdash; Within Free Corridor</span>
       </div>
     </div>
 
     <div class="strategy-item">
       <div class="strategy-rank">4</div>
       <div class="strategy-content">
-        <div class="strategy-name">North American VersaChoice10 &mdash; $426,802</div>
+        <div class="strategy-name">Joyce Schwab IRA &mdash; $133,629</div>
         <div class="strategy-detail">
-          NQ fixed indexed annuity, issued July 2024 &mdash; <strong>10-year surrender schedule active</strong>.
-          However, the standard <strong>10% free withdrawal corridor</strong> allows up to ~$42,680/yr penalty-free.
-          Our sustainable withdrawal at 5% is only ~$21,340/yr &mdash; well within the free corridor.
-          Gain-first taxation (LIFO) at 22% federal. Largest account = largest income generator.
+          Traditional IRA &mdash; every dollar taxed at 22% federal. Better to defer until
+          <strong>RMDs start at age 73 (2029)</strong>. Let it compound, draw last.
         </div>
-        <span class="strategy-tag tag-power">Largest Engine &mdash; Within Free Corridor</span>
+        <span class="strategy-tag tag-caution">Save for RMDs &mdash; Fully Taxable</span>
+      </div>
+    </div>
+
+    <div class="strategy-item">
+      <div class="strategy-rank">5</div>
+      <div class="strategy-content">
+        <div class="strategy-name">CDs (Maturing May 2026) &mdash; $80,000</div>
+        <div class="strategy-detail">
+          Several small CDs maturing May 2026. Reinvest at current CD rates or redeploy into
+          higher-yielding strategy. Interest taxed as ordinary income.
+        </div>
+        <span class="strategy-tag tag-good">Maturing Soon &mdash; Flexible</span>
       </div>
     </div>
   </div>
@@ -527,7 +427,7 @@
     <h3>And Then the GMIB Turns On</h3>
     <p>
       This analysis covers the <strong>immediate income replacement</strong> when Stephen retires from Mahaska Health.
-      These four accounts bridge the gap without depleting principal.<br><br>
+      These accounts bridge the gap without depleting principal.<br><br>
       When the Nassau GMIB activates (after the October 2026 roll-up), it generates
       <strong>$145,152/year guaranteed for life</strong> for both Stephen and Joyce &mdash;
       replacing the MHP income permanently AND funding the John Hancock Survivorship IUL
@@ -542,65 +442,69 @@
     6750 Westown Parkway, Suite 200-382 &nbsp;|&nbsp; West Des Moines, IA 50266 &nbsp;|&nbsp; 515-992-5000<br><br>
     This analysis assumes a constant rate of return for illustrative purposes only. Actual returns will vary.
     This is not investment advice. Consult your tax advisor for your specific situation.
-    Iowa does not tax retirement income distributions (IRA, pension, annuity).
+    Iowa does not tax retirement income distributions (IRA, pension, annuity).<br>
+    Updated March 20, 2026
   </div>
 
 </div>
 
 <script>
-  const ACCOUNTS = [
-    { id: 'joyce', value: 133629, taxRate: 0.22 },
+  // EJ uses confirmed 3.8% rate, all others use slider
+  const EJ_RATE = 0.038;
+  const EJ_VALUE = 95000;
+
+  const SLIDER_ACCOUNTS = [
     { id: 'roth',  value: 196887, taxRate: 0.00 },
-    { id: 'ej',    value: 200000, taxRate: 0.22 },
-    { id: 'na',    value: 426802, taxRate: 0.22 }
+    { id: 'na',    value: 426802, taxRate: 0.22 },
+    { id: 'joyce', value: 133629, taxRate: 0.22 },
+    { id: 'cd',    value: 80000,  taxRate: 0.22 }
   ];
-  const TOTAL_VALUE = ACCOUNTS.reduce((s, a) => s + a.value, 0);
-  const BASE_NET_MO = 8910;      // Post-MHP monthly NET
-  const MHP_GAP_MO = 3088;       // Monthly gap to fill
-  const CURRENT_NET_MO = 11998;  // Current monthly NET with MHP
-  const EXPENSES_MO = 8998;      // Monthly expenses
+
+  const BASE_NET_MO = 8910;
+  const MHP_GAP_MO = 3088;
+  const CURRENT_NET_MO = 11998;
 
   const slider = document.getElementById('rateSlider');
-  const rateDisplay = document.getElementById('rateValue');
 
   function fmt(n) {
     const abs = Math.abs(Math.round(n));
-    const str = abs.toLocaleString('en-US');
-    return n < 0 ? '-$' + str : '$' + str;
+    return (n < 0 ? '-$' : '$') + abs.toLocaleString('en-US');
   }
-
   function fmtSigned(n) {
     const abs = Math.abs(Math.round(n));
-    const str = abs.toLocaleString('en-US');
-    return n >= 0 ? '+$' + str : '-$' + str;
+    return (n >= 0 ? '+$' : '-$') + abs.toLocaleString('en-US');
   }
 
   function calcBreakeven() {
-    // Find rate where net monthly withdrawals = MHP gap
-    // Sum of (value * rate * (1 - taxRate)) / 12 = MHP_GAP_MO
-    // rate * Sum(value * (1 - taxRate)) / 12 = MHP_GAP_MO
-    const weightedSum = ACCOUNTS.reduce((s, a) => s + a.value * (1 - a.taxRate), 0);
-    const rate = (MHP_GAP_MO * 12) / weightedSum;
-    return rate;
+    // EJ contributes fixed amount, solve for rate on rest
+    const ejNet = EJ_VALUE * EJ_RATE * (1 - 0.22);
+    const remaining = (MHP_GAP_MO * 12) - ejNet;
+    const weightedSum = SLIDER_ACCOUNTS.reduce((s, a) => s + a.value * (1 - a.taxRate), 0);
+    return remaining / weightedSum;
   }
 
   function update() {
-    const rate = slider.value / 10 / 100; // 0-10% in 0.1% steps
+    const rate = slider.value / 10 / 100;
     const ratePct = (rate * 100).toFixed(1);
-    rateDisplay.textContent = ratePct;
+    document.getElementById('rateValue').textContent = ratePct;
 
-    let totalGross = 0, totalNet = 0;
+    // EJ always at 3.8%
+    const ejGross = EJ_VALUE * EJ_RATE;
+    const ejNetYr = ejGross * 0.78;
+    document.getElementById('ejGross').textContent = fmt(ejGross);
+    document.getElementById('ejNet').textContent = fmt(ejNetYr);
+    document.getElementById('ejMo').textContent = fmt(ejNetYr / 12);
 
-    ACCOUNTS.forEach(acct => {
+    let totalGross = ejGross, totalNet = ejNetYr;
+
+    SLIDER_ACCOUNTS.forEach(acct => {
       const gross = acct.value * rate;
       const net = gross * (1 - acct.taxRate);
-      const mo = net / 12;
       totalGross += gross;
       totalNet += net;
-
       document.getElementById(acct.id + 'Gross').textContent = fmt(gross);
       document.getElementById(acct.id + 'Net').textContent = fmt(net);
-      document.getElementById(acct.id + 'Mo').textContent = fmt(mo);
+      document.getElementById(acct.id + 'Mo').textContent = fmt(net / 12);
     });
 
     const totalMo = totalNet / 12;
@@ -608,15 +512,10 @@
     document.getElementById('totalNet').textContent = fmt(totalNet);
     document.getElementById('totalMo').textContent = fmt(totalMo);
 
-    // Replacement income = base + withdrawals
     const replacementMo = BASE_NET_MO + totalMo;
-    const replacementYr = replacementMo * 12;
-    document.getElementById('replacementValue').innerHTML =
-      fmt(replacementMo) + '<span style="font-size:14px;">/mo</span>';
-    document.getElementById('replacementDetail').textContent =
-      fmt(replacementYr) + '/yr — SS + IPERS + Portfolio';
+    document.getElementById('replacementValue').innerHTML = fmt(replacementMo) + '<span style="font-size:14px;">/mo</span>';
+    document.getElementById('replacementDetail').textContent = fmt(replacementMo * 12) + '/yr \u2014 SS + IPERS + Portfolio';
 
-    // Delta
     const deltaMo = totalMo - MHP_GAP_MO;
     const deltaYr = deltaMo * 12;
     const banner = document.getElementById('deltaBanner');
@@ -624,51 +523,38 @@
     const value = document.getElementById('deltaValue');
     const sub = document.getElementById('deltaSub');
 
-    if (deltaMo > 0) {
+    if (deltaMo > 1) {
       banner.className = 'delta-banner surplus';
       label.textContent = 'Monthly Surplus After Replacing MHP Income';
       value.textContent = fmtSigned(deltaMo) + '/mo';
-      sub.textContent = fmtSigned(deltaYr) + '/yr — without touching principal';
+      sub.textContent = fmtSigned(deltaYr) + '/yr \u2014 without touching principal';
     } else if (deltaMo < -1) {
       banner.className = 'delta-banner deficit';
-      label.textContent = 'Monthly Shortfall — Would Need Principal Draws';
+      label.textContent = 'Monthly Shortfall \u2014 Would Need Principal Draws';
       value.textContent = fmtSigned(deltaMo) + '/mo';
-      sub.textContent = fmtSigned(deltaYr) + '/yr — consider higher allocation or partial principal';
+      sub.textContent = fmtSigned(deltaYr) + '/yr \u2014 easily covered by $637K+ reserves';
     } else {
       banner.className = 'delta-banner neutral';
-      label.textContent = 'Breakeven — MHP Income Exactly Replaced';
+      label.textContent = 'Breakeven \u2014 MHP Income Exactly Replaced';
       value.textContent = '$0/mo';
       sub.textContent = 'Earnings match the gap precisely';
     }
 
-    // Bars
-    const maxBar = Math.max(CURRENT_NET_MO, replacementMo, EXPENSES_MO);
-    const basePct = (BASE_NET_MO / maxBar * 100);
-    const withdrawalPct = (totalMo / maxBar * 100);
-    document.getElementById('barBase').style.width = basePct + '%';
-    document.getElementById('barBase').querySelector('.bar-pct').textContent = '$' + Math.round(BASE_NET_MO).toLocaleString();
-    document.getElementById('barWithdrawal').style.width = Math.max(withdrawalPct, 0) + '%';
-    document.getElementById('barWithdrawalPct').textContent = fmt(totalMo);
-    document.getElementById('withdrawalBarValue').textContent = fmt(totalMo) + '/mo';
-    document.getElementById('withdrawalLabel').textContent = '+ Portfolio Withdrawals (at ' + ratePct + '%)';
+    const be = calcBreakeven();
+    document.getElementById('breakevenRate').textContent = (be * 100).toFixed(1) + '%';
 
-    // Breakeven
-    const breakevenRate = calcBreakeven();
-    document.getElementById('breakevenRate').textContent = (breakevenRate * 100).toFixed(1) + '%';
-
-    // Callout text
     const callout = document.getElementById('calloutText');
     if (deltaMo >= 0) {
-      callout.innerHTML = 'At ' + ratePct + '% return, these four accounts generate <strong>' + fmt(totalMo) +
-        '/mo</strong> in sustainable income without touching principal. That ' +
-        (deltaMo > 10 ? 'exceeds' : 'matches') + ' the $3,088/mo MHP gap' +
-        (deltaMo > 10 ? ' by <strong>' + fmt(deltaMo) + '/mo</strong>' : '') +
-        '. Stephen can retire from Mahaska Health and your lifestyle doesn\'t change.';
+      callout.innerHTML = 'At ' + ratePct + '% return, five accounts generate <strong>' + fmt(totalMo) +
+        '/mo</strong> in sustainable income without touching principal.' +
+        (deltaMo > 10 ? ' That exceeds the $3,088/mo MHP gap by <strong>' + fmt(deltaMo) + '/mo</strong>.' : '') +
+        ' On top of that, you have <strong>$637,000+</strong> in liquid reserves sitting untouched as a safety net.' +
+        ' This is BEFORE the Nassau GMIB activates.';
     } else {
-      callout.innerHTML = 'At ' + ratePct + '% return, these four accounts generate <strong>' + fmt(totalMo) +
-        '/mo</strong> — short of the $3,088/mo MHP gap by <strong>' + fmt(Math.abs(deltaMo)) +
-        '/mo</strong>. You\'d need to supplement with modest principal draws or target a ' +
-        (breakevenRate * 100).toFixed(1) + '% return to fully cover the gap from earnings alone.';
+      callout.innerHTML = 'At ' + ratePct + '% return, five accounts generate <strong>' + fmt(totalMo) +
+        '/mo</strong> \u2014 short of the $3,088/mo gap by <strong>' + fmt(Math.abs(deltaMo)) +
+        '/mo</strong>. That small difference is easily covered by your <strong>$637,000+ in liquid reserves</strong>.' +
+        ' You\'d need just ' + (be * 100).toFixed(1) + '% to fully cover the gap from earnings alone.';
     }
   }
 
