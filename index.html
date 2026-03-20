@@ -191,8 +191,8 @@
           <td>Stephen</td><td>$4,428</td><td>15% fed</td><td>$3,764</td><td>$45,168</td>
         </tr>
         <tr class="mhp-row">
-          <td>Mahaska Health<span class="mhp-badge">Retiring</span><br><span class="income-type">Earned income &mdash; Ordinary</span></td>
-          <td>Stephen</td><td>$4,011</td><td>20% fed + 3% state</td><td>$3,088</td><td>$37,056</td>
+          <td>Mahaska Health<span class="mhp-badge">Retiring</span><br><span class="income-type">Earned income &mdash; Semi-monthly pay cycle (2x/mo)</span></td>
+          <td>Stephen</td><td>$8,022</td><td>20% fed + 3% state</td><td>$6,177</td><td>$74,124</td>
         </tr>
         <tr>
           <td>IPERS Pension<br><span class="income-type">State pension &mdash; Ordinary income (IA exempt)</span></td>
@@ -203,7 +203,7 @@
           <td>Joyce</td><td>$1,934</td><td>15% fed</td><td>$1,644</td><td>$19,728</td>
         </tr>
         <tr class="subtotal-row">
-          <td>Current Total (with MHP)</td><td></td><td>$14,696</td><td></td><td>$11,998</td><td>$143,976</td>
+          <td>Current Total (with MHP)</td><td></td><td>$18,707</td><td></td><td>$15,087</td><td>$181,044</td>
         </tr>
         <tr class="posthp-row">
           <td>Post-Retirement Total (no MHP)</td><td></td><td>$10,685</td><td></td><td>$8,910</td><td>$106,920</td>
@@ -212,8 +212,8 @@
     </table>
     <div style="text-align:center; margin-top:12px; padding:10px; background:var(--red-light); border-radius:6px; border:1px solid var(--red);">
       <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--red);">Income Gap When Stephen Retires from Mahaska Health</div>
-      <div style="font-size:28px; font-weight:800; color:var(--red); line-height:1.1;">-$3,088/mo</div>
-      <div style="font-size:12px; color:var(--text-muted);">-$37,056/yr &mdash; This is the gap we need to fill</div>
+      <div style="font-size:28px; font-weight:800; color:var(--red); line-height:1.1;">-$6,177/mo</div>
+      <div style="font-size:12px; color:var(--text-muted);">-$74,124/yr &mdash; This is the gap we need to fill</div>
     </div>
   </div>
 
@@ -239,8 +239,8 @@
   <div class="comparison-grid">
     <div class="comp-box current">
       <div class="comp-label">Current Net Income (with MHP)</div>
-      <div class="comp-value">$11,998<span style="font-size:14px;">/mo</span></div>
-      <div class="comp-detail">$143,976/yr &mdash; SS + MHP + IPERS</div>
+      <div class="comp-value">$15,087<span style="font-size:14px;">/mo</span></div>
+      <div class="comp-detail">$181,044/yr &mdash; SS + MHP + IPERS</div>
     </div>
     <div class="comp-box replacement">
       <div class="comp-label">Post-Retirement + Withdrawals</div>
@@ -461,8 +461,8 @@
   ];
 
   const BASE_NET_MO = 8910;
-  const MHP_GAP_MO = 3088;
-  const CURRENT_NET_MO = 11998;
+  const MHP_GAP_MO = 6177;
+  const CURRENT_NET_MO = 15087;
 
   const slider = document.getElementById('rateSlider');
 
@@ -547,12 +547,12 @@
     if (deltaMo >= 0) {
       callout.innerHTML = 'At ' + ratePct + '% return, five accounts generate <strong>' + fmt(totalMo) +
         '/mo</strong> in sustainable income without touching principal.' +
-        (deltaMo > 10 ? ' That exceeds the $3,088/mo MHP gap by <strong>' + fmt(deltaMo) + '/mo</strong>.' : '') +
+        (deltaMo > 10 ? ' That exceeds the $6,177/mo MHP gap by <strong>' + fmt(deltaMo) + '/mo</strong>.' : '') +
         ' On top of that, you have <strong>$637,000+</strong> in liquid reserves sitting untouched as a safety net.' +
         ' This is BEFORE the Nassau GMIB activates.';
     } else {
       callout.innerHTML = 'At ' + ratePct + '% return, five accounts generate <strong>' + fmt(totalMo) +
-        '/mo</strong> \u2014 short of the $3,088/mo gap by <strong>' + fmt(Math.abs(deltaMo)) +
+        '/mo</strong> \u2014 short of the $6,177/mo gap by <strong>' + fmt(Math.abs(deltaMo)) +
         '/mo</strong>. That small difference is easily covered by your <strong>$637,000+ in liquid reserves</strong>.' +
         ' You\'d need just ' + (be * 100).toFixed(1) + '% to fully cover the gap from earnings alone.';
     }
