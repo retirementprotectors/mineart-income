@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Income Replacement Analysis — Mineart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a3158;
+    --navy-dark: #0f1d30;
+    --rpi-blue: #4a7ab5;
+    --pale-blue: #e5ecf6;
+    --pale-blue-soft: #edf2f8;
+    --charcoal: #5a6270;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --border: #e2e5ea;
+    --bg-light: #f8f9fa;
+    --gold: #c5a55a;
+    --gold-light: #d4bb7a;
+    --white: #ffffff;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 15px; line-height: 1.5;
+    color: var(--text-primary); background: var(--bg-light);
+    min-height: 100vh;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 20px 16px; }
+
+  .header {
+    text-align: center; padding: 28px 20px 20px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    border-radius: 12px; margin-bottom: 20px;
+    position: relative; overflow: hidden;
+  }
+  .header::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--rpi-blue), var(--gold), var(--rpi-blue));
+  }
+  .header-brand { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--rpi-blue); margin-bottom: 4px; }
+  .header h1 { font-size: 22px; font-weight: 800; color: var(--white); line-height: 1.2; margin-bottom: 4px; }
+  .header h2 { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.7); }
+  .header-client { font-size: 16px; font-weight: 700; color: var(--gold); margin-top: 10px; }
+
+  .card {
+    background: var(--white); border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 20px; margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card-title {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--rpi-blue); margin-bottom: 14px;
+  }
+
+  /* Slider */
+  .slider-section { text-align: center; }
+  .rate-display {
+    font-size: 48px; font-weight: 800; color: var(--navy);
+    line-height: 1; margin-bottom: 4px;
+  }
+  .rate-display span { font-size: 28px; font-weight: 600; }
+  .rate-label { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .slider-wrap { padding: 0 10px; }
+  input[type="range"] {
+    -webkit-appearance: none; width: 100%; height: 8px;
+    border-radius: 4px; background: var(--pale-blue); outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 28px; height: 28px;
+    border-radius: 50%; background: var(--navy); cursor: pointer;
+    border: 3px solid var(--white); box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .slider-range { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  /* Delta Banner */
+  .delta-banner {
+    border-radius: 10px; padding: 16px 20px;
+    margin-bottom: 16px; text-align: center;
+    transition: all 0.3s ease;
+  }
+  .delta-banner.surplus { background: var(--green-light); border: 2px solid var(--green); }
+  .delta-banner.deficit { background: var(--red-light); border: 2px solid var(--red); }
+  .delta-banner.neutral { background: var(--pale-blue-soft); border: 2px solid var(--rpi-blue); }
+  .delta-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+  .delta-banner.surplus .delta-label { color: var(--green); }
+  .delta-banner.deficit .delta-label { color: var(--red); }
+  .delta-banner.neutral .delta-label { color: var(--rpi-blue); }
+  .delta-value { font-size: 32px; font-weight: 800; line-height: 1.1; }
+  .delta-banner.surplus .delta-value { color: var(--green); }
+  .delta-banner.deficit .delta-value { color: var(--red); }
+  .delta-banner.neutral .delta-value { color: var(--navy); }
+  .delta-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Income Comparison */
+  .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .comp-box { border-radius: 8px; padding: 14px; text-align: center; }
+  .comp-box.current { background: var(--pale-blue); border: 2px solid var(--rpi-blue); }
+  .comp-box.replacement { background: var(--navy); }
+  .comp-box .comp-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .comp-box.current .comp-label { color: var(--rpi-blue); }
+  .comp-box.replacement .comp-label { color: var(--gold); }
+  .comp-box .comp-value { font-size: 26px; font-weight: 800; line-height: 1.2; margin-top: 2px; }
+  .comp-box.current .comp-value { color: var(--navy); }
+  .comp-box.replacement .comp-value { color: var(--white); }
+  .comp-box .comp-detail { font-size: 11px; margin-top: 2px; }
+  .comp-box.current .comp-detail { color: var(--text-muted); }
+  .comp-box.replacement .comp-detail { color: rgba(255,255,255,0.7); }
+
+  /* Account Table */
+  .acct-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .acct-table thead th {
+    background: var(--navy); color: var(--white); padding: 8px 10px;
+    font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+    text-align: right;
+  }
+  .acct-table thead th:first-child { text-align: left; border-radius: 6px 0 0 0; }
+  .acct-table thead th:last-child { border-radius: 0 6px 0 0; }
+  .acct-table tbody td {
+    padding: 10px 10px; text-align: right;
+    border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums;
+  }
+  .acct-table tbody td:first-child { text-align: left; font-weight: 600; color: var(--text-secondary); }
+  .acct-table tbody tr:nth-child(even) { background: var(--bg-light); }
+  .acct-table tbody tr.total-row { background: var(--pale-blue-soft); }
+  .acct-table tbody tr.total-row td { font-weight: 800; color: var(--navy); border-top: 2px solid var(--rpi-blue); }
+  .acct-table .tax-free { color: var(--green); font-weight: 700; }
+  .acct-table .tax-note { font-size: 10px; color: var(--text-muted); font-weight: 400; }
+
+  /* Strategy Notes */
+  .strategy-item {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .strategy-item:last-child { border-bottom: none; }
+  .strategy-rank {
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--navy); color: var(--gold); font-size: 13px;
+    font-weight: 800; display: flex; align-items: center; justify-content: center;
+  }
+  .strategy-content { flex: 1; }
+  .strategy-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .strategy-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-top: 2px; }
+  .strategy-tag {
+    display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 2px 6px; border-radius: 3px; margin-top: 4px;
+  }
+  .tag-best { background: var(--green-light); color: var(--green); border: 1px solid var(--green); }
+  .tag-good { background: var(--pale-blue-soft); color: var(--rpi-blue); border: 1px solid var(--rpi-blue); }
+  .tag-caution { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .tag-power { background: #faf5ff; color: #7c3aed; border: 1px solid #a78bfa; }
+
+  /* Breakeven indicator */
+  .breakeven-line {
+    text-align: center; padding: 8px; font-size: 12px; color: var(--text-muted);
+    border-top: 1px dashed var(--border); margin-top: 4px;
+  }
+  .breakeven-line strong { color: var(--navy); }
+
+  /* Bar visualization */
+  .bar-section { margin-bottom: 16px; }
+  .bar-row { margin-bottom: 10px; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px; }
+  .bar-label-name { font-weight: 600; color: var(--text-secondary); }
+  .bar-label-value { font-weight: 700; color: var(--navy); }
+  .bar-track { height: 24px; background: var(--pale-blue); border-radius: 6px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 6px; transition: width 0.4s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; }
+  .bar-fill.income { background: linear-gradient(90deg, var(--rpi-blue), var(--navy)); }
+  .bar-fill.replacement { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+  .bar-fill.expenses { background: linear-gradient(90deg, #ef4444, #f87171); }
+  .bar-pct { font-size: 10px; font-weight: 700; color: white; }
+
+  .footer {
+    text-align: center; padding: 16px; font-size: 10px; color: var(--text-muted);
+    border-top: 1px solid var(--border); margin-top: 8px;
+  }
+  .footer strong { color: var(--navy); }
+
+  .callout {
+    background: var(--navy); color: var(--white); border-radius: 8px;
+    padding: 14px 18px; margin-bottom: 16px;
+    border-left: 4px solid var(--gold);
+  }
+  .callout h3 { font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 4px; }
+  .callout p { font-size: 12px; line-height: 1.55; color: rgba(255,255,255,0.9); }
+
+  @media (max-width: 600px) {
+    .comparison-grid { grid-template-columns: 1fr; }
+    .rate-display { font-size: 40px; }
+    .delta-value { font-size: 26px; }
+    .comp-box .comp-value { font-size: 22px; }
+    .acct-table { font-size: 11px; }
+    .acct-table thead th, .acct-table tbody td { padding: 7px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="header-brand">Retirement Protectors</div>
+    <h1>Income Replacement Analysis</h1>
+    <h2>Post-Retirement Income Strategy</h2>
+    <div class="header-client">Stephen &amp; Joyce Mineart</div>
+  </div>
+
+  <!-- Rate of Return Slider -->
+  <div class="card slider-section">
+    <div class="rate-display"><span id="rateValue">5.0</span><span>%</span></div>
+    <div class="rate-label">Assumed Rate of Return</div>
+    <div class="slider-wrap">
+      <input type="range" id="rateSlider" min="0" max="100" value="50" step="1">
+      <div class="slider-range"><span>0%</span><span>2.5%</span><span>5%</span><span>7.5%</span><span>10%</span></div>
+    </div>
+    <div class="breakeven-line" id="breakevenLine">
+      Breakeven rate to cover MHP gap: <strong id="breakevenRate">—</strong>
+    </div>
+  </div>
+
+  <!-- Delta Banner -->
+  <div class="delta-banner surplus" id="deltaBanner">
+    <div class="delta-label" id="deltaLabel">Monthly Surplus After Replacing MHP Income</div>
+    <div class="delta-value" id="deltaValue">+$204/mo</div>
+    <div class="delta-sub" id="deltaSub">$2,448/yr — without touching principal</div>
+  </div>
+
+  <!-- Income Comparison Boxes -->
+  <div class="comparison-grid">
+    <div class="comp-box current">
+      <div class="comp-label">Current Net Income (with MHP)</div>
+      <div class="comp-value">$11,998<span style="font-size:14px;">/mo</span></div>
+      <div class="comp-detail">$143,976/yr — SS + MHP + IPERS</div>
+    </div>
+    <div class="comp-box replacement">
+      <div class="comp-label">Post-Retirement + Withdrawals</div>
+      <div class="comp-value" id="replacementValue">$12,202<span style="font-size:14px;">/mo</span></div>
+      <div class="comp-detail" id="replacementDetail">$146,424/yr — SS + IPERS + Portfolio</div>
+    </div>
+  </div>
+
+  <!-- Visual Bars -->
+  <div class="card">
+    <div class="card-title">Income vs. Expenses</div>
+    <div class="bar-section">
+      <div class="bar-row">
+        <div class="bar-label">
+          <span class="bar-label-name">Base Retirement Income (no MHP)</span>
+          <span class="bar-label-value">$8,910/mo</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill income" id="barBase" style="width: 74.3%;">
+            <span class="bar-pct">74%</span>
+          </div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">
+          <span class="bar-label-name" id="withdrawalLabel">+ Portfolio Withdrawals (at 5.0%)</span>
+          <span class="bar-label-value" id="withdrawalBarValue">$3,292/mo</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill replacement" id="barWithdrawal" style="width: 27.4%;">
+            <span class="bar-pct" id="barWithdrawalPct">27%</span>
+          </div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">
+          <span class="bar-label-name">Household Expenses</span>
+          <span class="bar-label-value">$8,998/mo</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill expenses" style="width: 75%;">
+            <span class="bar-pct">$107,980/yr</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Account Detail Table -->
+  <div class="card">
+    <div class="card-title">Sustainable Withdrawal Detail — Earnings Only, Principal Intact</div>
+    <table class="acct-table">
+      <thead>
+        <tr>
+          <th>Account</th>
+          <th>Value</th>
+          <th>Annual Yield</th>
+          <th>Tax</th>
+          <th>NET/yr</th>
+          <th>NET/mo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Joyce Schwab IRA<br><span class="tax-note">Trad IRA — 22% fed, IA exempt</span></td>
+          <td>$133,629</td>
+          <td id="joyceGross">$6,681</td>
+          <td>22%</td>
+          <td id="joyceNet">$5,211</td>
+          <td id="joyceMo">$434</td>
+        </tr>
+        <tr>
+          <td>Stephen Schwab Roth<br><span class="tax-note tax-free">Tax-Free &mdash; no federal, no state</span></td>
+          <td>$196,887</td>
+          <td id="rothGross">$9,844</td>
+          <td class="tax-free">0%</td>
+          <td id="rothNet" class="tax-free">$9,844</td>
+          <td id="rothMo" class="tax-free">$820</td>
+        </tr>
+        <tr>
+          <td>Edward Jones NQ<br><span class="tax-note">Joint brokerage — 22% fed on income</span></td>
+          <td>$200,000</td>
+          <td id="ejGross">$10,000</td>
+          <td>22%</td>
+          <td id="ejNet">$7,800</td>
+          <td id="ejMo">$650</td>
+        </tr>
+        <tr>
+          <td>North American NQ<br><span class="tax-note">VersaChoice10 — 10% free corridor</span></td>
+          <td>$426,802</td>
+          <td id="naGross">$21,340</td>
+          <td>22%</td>
+          <td id="naNet">$16,645</td>
+          <td id="naMo">$1,387</td>
+        </tr>
+        <tr class="total-row">
+          <td>TOTAL</td>
+          <td>$957,318</td>
+          <td id="totalGross">$47,866</td>
+          <td></td>
+          <td id="totalNet">$39,501</td>
+          <td id="totalMo">$3,292</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Callout -->
+  <div class="callout">
+    <h3>The Bottom Line</h3>
+    <p id="calloutText">
+      At 5.0% return, these four accounts generate $3,292/mo in sustainable income without touching principal.
+      That exceeds the $3,088/mo MHP gap by $204/mo. Stephen can retire from Mahaska Health
+      and your lifestyle doesn't change.
+    </p>
+  </div>
+
+  <!-- Strategy Recommendations -->
+  <div class="card">
+    <div class="card-title">Withdrawal Priority — What to Take and Why</div>
+
+    <div class="strategy-item">
+      <div class="strategy-rank">1</div>
+      <div class="strategy-content">
+        <div class="strategy-name">Schwab Roth IRA &mdash; $196,887</div>
+        <div class="strategy-detail">
+          Best first dollar. Every withdrawal is <strong>100% tax-free</strong> &mdash; no federal, no state, no bracket impact.
+          Stephen is 71, fully eligible, no penalties. Doesn't increase your taxable income, won't push you into a higher bracket,
+          and won't trigger additional Social Security taxation.
+        </div>
+        <span class="strategy-tag tag-best">Best First Dollar &mdash; Tax Free</span>
+      </div>
+    </div>
+
+    <div class="strategy-item">
+      <div class="strategy-rank">2</div>
+      <div class="strategy-content">
+        <div class="strategy-name">Edward Jones NQ Brokerage &mdash; $200,000</div>
+        <div class="strategy-detail">
+          Joint account, commission-based, fixed income portfolio. Only the <strong>gain portion</strong> is taxable &mdash;
+          cost basis comes out tax-free. The fixed income holdings likely generate natural dividends and interest,
+          reducing the need to sell positions. Minimal tax drag compared to IRA distributions.
+        </div>
+        <span class="strategy-tag tag-good">Good Second Dollar &mdash; Favorable Tax</span>
+      </div>
+    </div>
+
+    <div class="strategy-item">
+      <div class="strategy-rank">3</div>
+      <div class="strategy-content">
+        <div class="strategy-name">Joyce Schwab IRA &mdash; $133,629</div>
+        <div class="strategy-detail">
+          Traditional IRA &mdash; every dollar withdrawn is ordinary income taxed at 22% federal (Iowa exempt).
+          Joyce is 70, no early withdrawal penalty. Better to defer until <strong>RMDs start at age 73 (2029)</strong>
+          since she'll be forced to take distributions then anyway. RMD at 73: approximately $5,042/yr ($420/mo).
+        </div>
+        <span class="strategy-tag tag-caution">Save for RMDs &mdash; Fully Taxable</span>
+      </div>
+    </div>
+
+    <div class="strategy-item">
+      <div class="strategy-rank">4</div>
+      <div class="strategy-content">
+        <div class="strategy-name">North American VersaChoice10 &mdash; $426,802</div>
+        <div class="strategy-detail">
+          NQ fixed indexed annuity, issued July 2024 &mdash; <strong>10-year surrender schedule active</strong>.
+          However, the standard <strong>10% free withdrawal corridor</strong> allows up to ~$42,680/yr penalty-free.
+          Our sustainable withdrawal at 5% is only ~$21,340/yr &mdash; well within the free corridor.
+          Gain-first taxation (LIFO) at 22% federal. Largest account = largest income generator.
+        </div>
+        <span class="strategy-tag tag-power">Largest Engine &mdash; Within Free Corridor</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GMIB Note -->
+  <div class="callout">
+    <h3>And Then the GMIB Turns On</h3>
+    <p>
+      This analysis covers the <strong>immediate income replacement</strong> when Stephen retires from Mahaska Health.
+      These four accounts bridge the gap without depleting principal.<br><br>
+      When the Nassau GMIB activates (after the October 2026 roll-up), it generates
+      <strong>$145,152/year guaranteed for life</strong> for both Stephen and Joyce &mdash;
+      replacing the MHP income permanently AND funding the John Hancock Survivorship IUL
+      for up to <strong>$6&ndash;7.3 million in tax-free death benefit</strong>.<br><br>
+      The portfolio withdrawals are the bridge. The GMIB is the destination.
+    </p>
+  </div>
+
+  <div class="footer">
+    <strong>Retirement Protectors, Inc.</strong> &mdash; We're Your People&trade;<br>
+    Prepared for Stephen &amp; Joyce Mineart &nbsp;|&nbsp; Advisor: Josh Archer<br>
+    6750 Westown Parkway, Suite 200-382 &nbsp;|&nbsp; West Des Moines, IA 50266 &nbsp;|&nbsp; 515-992-5000<br><br>
+    This analysis assumes a constant rate of return for illustrative purposes only. Actual returns will vary.
+    This is not investment advice. Consult your tax advisor for your specific situation.
+    Iowa does not tax retirement income distributions (IRA, pension, annuity).
+  </div>
+
+</div>
+
+<script>
+  const ACCOUNTS = [
+    { id: 'joyce', value: 133629, taxRate: 0.22 },
+    { id: 'roth',  value: 196887, taxRate: 0.00 },
+    { id: 'ej',    value: 200000, taxRate: 0.22 },
+    { id: 'na',    value: 426802, taxRate: 0.22 }
+  ];
+  const TOTAL_VALUE = ACCOUNTS.reduce((s, a) => s + a.value, 0);
+  const BASE_NET_MO = 8910;      // Post-MHP monthly NET
+  const MHP_GAP_MO = 3088;       // Monthly gap to fill
+  const CURRENT_NET_MO = 11998;  // Current monthly NET with MHP
+  const EXPENSES_MO = 8998;      // Monthly expenses
+
+  const slider = document.getElementById('rateSlider');
+  const rateDisplay = document.getElementById('rateValue');
+
+  function fmt(n) {
+    const abs = Math.abs(Math.round(n));
+    const str = abs.toLocaleString('en-US');
+    return n < 0 ? '-$' + str : '$' + str;
+  }
+
+  function fmtSigned(n) {
+    const abs = Math.abs(Math.round(n));
+    const str = abs.toLocaleString('en-US');
+    return n >= 0 ? '+$' + str : '-$' + str;
+  }
+
+  function calcBreakeven() {
+    // Find rate where net monthly withdrawals = MHP gap
+    // Sum of (value * rate * (1 - taxRate)) / 12 = MHP_GAP_MO
+    // rate * Sum(value * (1 - taxRate)) / 12 = MHP_GAP_MO
+    const weightedSum = ACCOUNTS.reduce((s, a) => s + a.value * (1 - a.taxRate), 0);
+    const rate = (MHP_GAP_MO * 12) / weightedSum;
+    return rate;
+  }
+
+  function update() {
+    const rate = slider.value / 10 / 100; // 0-10% in 0.1% steps
+    const ratePct = (rate * 100).toFixed(1);
+    rateDisplay.textContent = ratePct;
+
+    let totalGross = 0, totalNet = 0;
+
+    ACCOUNTS.forEach(acct => {
+      const gross = acct.value * rate;
+      const net = gross * (1 - acct.taxRate);
+      const mo = net / 12;
+      totalGross += gross;
+      totalNet += net;
+
+      document.getElementById(acct.id + 'Gross').textContent = fmt(gross);
+      document.getElementById(acct.id + 'Net').textContent = fmt(net);
+      document.getElementById(acct.id + 'Mo').textContent = fmt(mo);
+    });
+
+    const totalMo = totalNet / 12;
+    document.getElementById('totalGross').textContent = fmt(totalGross);
+    document.getElementById('totalNet').textContent = fmt(totalNet);
+    document.getElementById('totalMo').textContent = fmt(totalMo);
+
+    // Replacement income = base + withdrawals
+    const replacementMo = BASE_NET_MO + totalMo;
+    const replacementYr = replacementMo * 12;
+    document.getElementById('replacementValue').innerHTML =
+      fmt(replacementMo) + '<span style="font-size:14px;">/mo</span>';
+    document.getElementById('replacementDetail').textContent =
+      fmt(replacementYr) + '/yr — SS + IPERS + Portfolio';
+
+    // Delta
+    const deltaMo = totalMo - MHP_GAP_MO;
+    const deltaYr = deltaMo * 12;
+    const banner = document.getElementById('deltaBanner');
+    const label = document.getElementById('deltaLabel');
+    const value = document.getElementById('deltaValue');
+    const sub = document.getElementById('deltaSub');
+
+    if (deltaMo > 0) {
+      banner.className = 'delta-banner surplus';
+      label.textContent = 'Monthly Surplus After Replacing MHP Income';
+      value.textContent = fmtSigned(deltaMo) + '/mo';
+      sub.textContent = fmtSigned(deltaYr) + '/yr — without touching principal';
+    } else if (deltaMo < -1) {
+      banner.className = 'delta-banner deficit';
+      label.textContent = 'Monthly Shortfall — Would Need Principal Draws';
+      value.textContent = fmtSigned(deltaMo) + '/mo';
+      sub.textContent = fmtSigned(deltaYr) + '/yr — consider higher allocation or partial principal';
+    } else {
+      banner.className = 'delta-banner neutral';
+      label.textContent = 'Breakeven — MHP Income Exactly Replaced';
+      value.textContent = '$0/mo';
+      sub.textContent = 'Earnings match the gap precisely';
+    }
+
+    // Bars
+    const maxBar = Math.max(CURRENT_NET_MO, replacementMo, EXPENSES_MO);
+    const basePct = (BASE_NET_MO / maxBar * 100);
+    const withdrawalPct = (totalMo / maxBar * 100);
+    document.getElementById('barBase').style.width = basePct + '%';
+    document.getElementById('barBase').querySelector('.bar-pct').textContent = '$' + Math.round(BASE_NET_MO).toLocaleString();
+    document.getElementById('barWithdrawal').style.width = Math.max(withdrawalPct, 0) + '%';
+    document.getElementById('barWithdrawalPct').textContent = fmt(totalMo);
+    document.getElementById('withdrawalBarValue').textContent = fmt(totalMo) + '/mo';
+    document.getElementById('withdrawalLabel').textContent = '+ Portfolio Withdrawals (at ' + ratePct + '%)';
+
+    // Breakeven
+    const breakevenRate = calcBreakeven();
+    document.getElementById('breakevenRate').textContent = (breakevenRate * 100).toFixed(1) + '%';
+
+    // Callout text
+    const callout = document.getElementById('calloutText');
+    if (deltaMo >= 0) {
+      callout.innerHTML = 'At ' + ratePct + '% return, these four accounts generate <strong>' + fmt(totalMo) +
+        '/mo</strong> in sustainable income without touching principal. That ' +
+        (deltaMo > 10 ? 'exceeds' : 'matches') + ' the $3,088/mo MHP gap' +
+        (deltaMo > 10 ? ' by <strong>' + fmt(deltaMo) + '/mo</strong>' : '') +
+        '. Stephen can retire from Mahaska Health and your lifestyle doesn\'t change.';
+    } else {
+      callout.innerHTML = 'At ' + ratePct + '% return, these four accounts generate <strong>' + fmt(totalMo) +
+        '/mo</strong> — short of the $3,088/mo MHP gap by <strong>' + fmt(Math.abs(deltaMo)) +
+        '/mo</strong>. You\'d need to supplement with modest principal draws or target a ' +
+        (breakevenRate * 100).toFixed(1) + '% return to fully cover the gap from earnings alone.';
+    }
+  }
+
+  slider.addEventListener('input', update);
+  update();
+</script>
+
+</body>
+</html>
