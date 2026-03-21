@@ -434,6 +434,19 @@
   .estate-bottom-cta { font-size: 12px; font-weight: 700; color: var(--rpi-blue); margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
   .estate-bottom:hover .estate-bottom-cta { color: var(--white); }
 
+  /* ========== FYP TOGGLE ========== */
+  .fyp-row { background: var(--rpi-blue-pale) !important; }
+  .fyp-row td { font-weight: 700 !important; color: var(--navy) !important; border-top: 2px dashed var(--rpi-blue) !important; }
+  .fyp-toggle { display: flex; gap: 4px; justify-content: flex-start; margin: 6px 0; }
+  .fyp-btn {
+    padding: 5px 12px; border: 2px solid var(--border); border-radius: 4px;
+    background: var(--white); color: var(--text-secondary);
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .fyp-btn.active { border-color: var(--rpi-blue); background: var(--rpi-blue); color: var(--white); }
+  .fyp-btn:hover { border-color: var(--rpi-blue); }
+
   /* ========== RETIREMENT TOGGLE ========== */
   .toggle-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; }
   .toggle-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--rpi-blue); margin-bottom: 6px; }
@@ -549,163 +562,21 @@
 
 <!-- ==================== TAB BAR ==================== -->
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('overview')" id="tabBtn-overview">
-    <span class="tab-icon">&#x1F4CA;</span>Overview
-  </button>
-  <button class="tab-btn" onclick="switchTab('income')" id="tabBtn-income">
-    <span class="tab-icon">&#x1F4B0;</span>Income
+  <button class="tab-btn active" onclick="switchTab('income')" id="tabBtn-income">
+    <span class="tab-icon">&#x1F4B0;</span>Cash Flow
   </button>
   <button class="tab-btn" onclick="switchTab('estate')" id="tabBtn-estate">
     <span class="tab-icon">&#x1F3E0;</span>Estate
   </button>
-  <button class="tab-btn" onclick="switchTab('reserves')" id="tabBtn-reserves">
-    <span class="tab-icon">&#x1F6E1;</span>Reserves
-  </button>
 </div>
 
-<!-- ================================================================ -->
-<!-- TAB 1: OVERVIEW                                                   -->
-<!-- ================================================================ -->
-<div class="tab-panel active" id="panel-overview">
-  <div class="container">
-    <div class="print-tab-title">Financial Overview</div>
-
-    <div class="card" style="padding:16px 20px; margin-bottom:16px; text-align:center; background:var(--pale-blue); border-color:var(--rpi-blue);">
-      <div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--rpi-blue); margin-bottom:2px;">Financial Overview</div>
-      <div style="font-size:18px; font-weight:800; color:var(--navy);">Stephen &amp; Joyce Mineart</div>
-    </div>
-
-    <!-- Summary Bar -->
-    <div class="summary-bar">
-      <div class="summary-item">
-        <div class="summary-value">$3.16M</div>
-        <div class="summary-label">Net Worth</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-value">$2.78M</div>
-        <div class="summary-label">Investable Assets</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-value">$760K+</div>
-        <div class="summary-label">Liquid Assets</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-value">$15,518</div>
-        <div class="summary-label">HH Income/Mo</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-value">$8,910</div>
-        <div class="summary-label">Post-Retire/Mo</div>
-      </div>
-    </div>
-
-    <!-- Asset Table -->
-    <div class="card">
-      <div class="card-title">Investment &amp; Retirement Assets</div>
-      <div class="tbl-wrap">
-        <table class="tbl">
-          <thead>
-            <tr><th>Account</th><th>Owner</th><th>Type</th><th style="text-align:right;">Value</th><th>Notes</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Nassau Income Accelerator</td>
-              <td>Stephen</td>
-              <td>IRA / FIA</td>
-              <td>$1,809,360</td>
-              <td style="font-size:10px; color:var(--text-muted); text-align:left;">GMIB strategy &mdash; earmarked</td>
-            </tr>
-            <tr>
-              <td>North American VersaChoice10</td>
-              <td>Joint</td>
-              <td>NQ / FIA</td>
-              <td>$426,802</td>
-              <td style="font-size:10px; color:var(--text-muted); text-align:left;">10% free corridor</td>
-            </tr>
-            <tr>
-              <td>Schwab Roth IRA</td>
-              <td>Stephen</td>
-              <td>Roth IRA</td>
-              <td>$196,887</td>
-              <td style="font-size:10px; color:var(--text-muted); text-align:left;">Tax-free withdrawals</td>
-            </tr>
-            <tr>
-              <td>Schwab IRA</td>
-              <td>Joyce</td>
-              <td>Trad IRA</td>
-              <td>$133,629</td>
-              <td style="font-size:10px; color:var(--text-muted); text-align:left;">RMDs start 2029 (age 73)</td>
-            </tr>
-            <tr>
-              <td>Edward Jones Brokerage</td>
-              <td>Joint</td>
-              <td>NQ</td>
-              <td>$95,000</td>
-              <td style="font-size:10px; color:var(--text-muted); text-align:left;">Confirmed 3.8% yield</td>
-            </tr>
-            <tr>
-              <td>529 Plan</td>
-              <td>Joint</td>
-              <td>Education</td>
-              <td>$123,000</td>
-              <td style="font-size:10px; color:var(--text-muted); text-align:left;">Grandchildren</td>
-            </tr>
-            <tr class="total-row">
-              <td>Total</td>
-              <td></td>
-              <td></td>
-              <td>$2,784,678</td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Insurance Table -->
-    <div class="card">
-      <div class="card-title">Life Insurance Policies</div>
-      <div class="tbl-wrap">
-        <table class="tbl">
-          <thead>
-            <tr><th>Policy</th><th>Owner/Insured</th><th>Type</th><th>Death Benefit</th><th>CSV / Premium</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>LFG MoneyGuard</td>
-              <td>Joyce</td>
-              <td>Hybrid LTC</td>
-              <td>$131,494</td>
-              <td style="font-size:11px;">$62,769 CSV</td>
-            </tr>
-            <tr>
-              <td>LFG MoneyGuard</td>
-              <td>Stephen</td>
-              <td>Hybrid LTC</td>
-              <td>$145,806</td>
-              <td style="font-size:11px;">$75,239 CSV</td>
-            </tr>
-            <tr>
-              <td>Prudential Term</td>
-              <td>Stephen</td>
-              <td>Term Life</td>
-              <td>$350,000</td>
-              <td style="font-size:11px;">$3,960/yr premium</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 <!-- ================================================================ -->
 <!-- TAB 2: INCOME                                                     -->
 <!-- ================================================================ -->
-<div class="tab-panel" id="panel-income">
+<div class="tab-panel active" id="panel-income">
   <div class="container">
-    <div class="print-tab-title">Income Replacement Analysis</div>
+    <div class="print-tab-title">Cash Flow Analysis</div>
 
     <!-- ===== CONTROL PANEL: 3 SLIDERS ===== -->
     <div class="slider-panel">
@@ -885,8 +756,8 @@
                       <td id="cdNet">$1,872</td>
                     </tr>
                     <tr>
-                      <td>WF Inheritance (After Yr 1)</td>
-                      <td>$97,000</td>
+                      <td>WF Inheritance (After FYP)<br><span class="tax-note">$217K minus Year 1 premium</span></td>
+                      <td id="wfValue">$97,000</td>
                       <td id="wfGross">$2,910</td>
                       <td id="wfNet">$2,270</td>
                     </tr>
@@ -896,11 +767,30 @@
                       <td id="rsGross">$6,000</td>
                       <td id="rsNet" class="tax-free">$6,000</td>
                     </tr>
-                    <tr class="total-row">
-                      <td>Fixed Total</td>
+                    <tr class="subtotal-row">
+                      <td>Fixed Subtotal</td>
                       <td>$642,000</td>
                       <td id="fixedGross">$19,260</td>
                       <td id="fixedNet">$16,343</td>
+                    </tr>
+                    <tr class="fyp-row">
+                      <td>
+                        Year 1 JH Premium (FYP)
+                        <div class="fyp-toggle">
+                          <button class="fyp-btn active" onclick="setFYP(120000)">$120K</button>
+                          <button class="fyp-btn" onclick="setFYP(90000)">$90K</button>
+                          <button class="fyp-btn" onclick="setFYP(60000)">$60K</button>
+                        </div>
+                      </td>
+                      <td id="fypAmount" style="color:var(--red) !important;">&minus;$120,000</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="total-row">
+                      <td><strong>Fixed NET After FYP</strong></td>
+                      <td id="fixedNetAfterFYP">$522,000</td>
+                      <td id="fixedGrossAfterFYP">$19,260</td>
+                      <td id="fixedNetIncAfterFYP">$16,343</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1125,71 +1015,6 @@
 </div>
 
 <!-- ================================================================ -->
-<!-- TAB 4: RESERVES                                                   -->
-<!-- ================================================================ -->
-<div class="tab-panel" id="panel-reserves">
-  <div class="container">
-    <div class="print-tab-title">Reserves &mdash; Safety Net</div>
-
-    <div class="card" style="padding:16px 20px; margin-bottom:16px; text-align:center; background:var(--pale-blue); border-color:var(--rpi-blue);">
-      <div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--rpi-blue); margin-bottom:2px;">Liquid Reserves</div>
-      <div style="font-size:16px; font-weight:600; color:var(--navy);">Your Safety Net &mdash; Not Needed for Income</div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Reserve Accounts</div>
-      <div class="reserve-grid">
-        <div class="reserve-item">
-          <div class="reserve-value">$50,000</div>
-          <div class="reserve-label">HSA</div>
-        </div>
-        <div class="reserve-item">
-          <div class="reserve-value">$123,000</div>
-          <div class="reserve-label">529 Plan (Grandkids)</div>
-        </div>
-      </div>
-      <div class="reserve-total">
-        <div class="reserve-total-label">Total Liquid Reserves</div>
-        <div class="reserve-total-value">$173,000</div>
-        <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
-          Separate from income-generating accounts. This is your cushion.
-        </div>
-      </div>
-    </div>
-
-    <div class="reserve-message">
-      This money sits untouched regardless of which option you choose.<br>
-      <span style="font-size:12px; font-weight:400; color:rgba(255,255,255,0.7);">
-        Income comes from the GMIB + portfolio earnings. Reserves are your emergency fund.
-      </span>
-    </div>
-
-    <!-- Reserve Breakdown Context -->
-    <div class="card" style="margin-top:16px;">
-      <div class="card-title">What Each Reserve Is For</div>
-      <div class="strategy-item">
-        <div class="strategy-rank" style="background:var(--rpi-blue);">&#x2713;</div>
-        <div class="strategy-content">
-          <div class="strategy-name">HSA &mdash; $50,000</div>
-          <div class="strategy-detail">
-            Healthcare expenses. Triple tax advantage. Grows tax-free, withdraws tax-free for medical.
-          </div>
-        </div>
-      </div>
-      <div class="strategy-item">
-        <div class="strategy-rank" style="background:var(--rpi-blue);">&#x2713;</div>
-        <div class="strategy-content">
-          <div class="strategy-name">529 Plan &mdash; $123,000</div>
-          <div class="strategy-detail">
-            Earmarked for grandchildren's education. Not part of retirement income.
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <!-- ==================== FOOTER ==================== -->
 <div class="site-footer">
   <div class="footer-brand">Retirement Protectors, Inc.</div>
@@ -1237,11 +1062,19 @@
     { id: 'sav', value: 110000, taxable: true },
     { id: 'ej', value: 95000, taxable: true },
     { id: 'cd', value: 80000, taxable: true },
-    { id: 'wf', value: 97000, taxable: true }, // $217K minus ~$120K Yr1 premium (Option A estimate)
+    { id: 'wf', value: 97000, taxable: true, base: 217000 }, // $217K minus FYP
     { id: 'rs', value: 200000, taxable: false } // Inherited death benefit — tax-free IRC 101(a)
   ];
   var FIXED_TOTAL_VALUE = 642000;
-  var RESERVES_LIQUID = 50000; // HSA only (everything else is now earning in Fixed)
+  var RESERVES_LIQUID = 50000;
+  var currentFYP = 120000; // default Option A
+
+  function setFYP(amount) {
+    currentFYP = amount;
+    document.querySelectorAll('.fyp-btn').forEach(function(b) { b.classList.remove('active'); });
+    event.target.classList.add('active');
+    updateAll();
+  }
   var taxSlider = document.getElementById('taxSlider');
   var rorSlider = document.getElementById('rateSlider');
   var intSlider = document.getElementById('intSlider');
@@ -1332,6 +1165,10 @@
     }
 
     // SECTION 2B: FIXED
+    // Update WF value based on FYP
+    FIXED_ACCOUNTS.forEach(function(a) { if (a.id === 'wf') a.value = Math.max(0, 217000 - currentFYP); });
+    var wfEl = document.getElementById('wfValue'); if (wfEl) wfEl.textContent = fmt(Math.max(0, 217000 - currentFYP));
+
     var fxG = 0, fxN = 0;
     FIXED_ACCOUNTS.forEach(function(a) {
       var g = a.value * ir, n = a.taxable ? g * (1 - tb) : g;
@@ -1341,6 +1178,13 @@
     });
     document.getElementById('fixedGross').textContent = fmt(fxG);
     document.getElementById('fixedNet').textContent = fmt(fxN);
+
+    // FYP row
+    var fixedAfterFYP = FIXED_TOTAL_VALUE - currentFYP;
+    document.getElementById('fypAmount').innerHTML = '&minus;' + fmt(currentFYP);
+    document.getElementById('fixedNetAfterFYP').textContent = fmt(fixedAfterFYP);
+    document.getElementById('fixedGrossAfterFYP').textContent = fmt(fxG);
+    document.getElementById('fixedNetIncAfterFYP').textContent = fmt(fxN);
 
     var gapAfterAll = gapN - grN - fxN;
     // Fixed output = Reserve Runway Years
