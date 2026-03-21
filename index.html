@@ -399,6 +399,45 @@
   }
   .print-tab-title { display: none; }
 
+  /* ========== DASHBOARD LAYOUT ========== */
+  .slider-panel {
+    background: var(--navy); border-radius: 10px;
+    padding: 16px 20px; margin-bottom: 16px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .slider-panel .slider-cell { text-align: center; }
+  .slider-panel .slider-cell .rate-display { font-size: 32px; color: var(--white); }
+  .slider-panel .slider-cell .rate-display span { font-size: 20px; }
+  .slider-panel .slider-cell .rate-label { font-size: 9px; color: var(--rpi-blue); margin-bottom: 6px; }
+  .slider-panel input[type="range"] { background: rgba(255,255,255,0.15); }
+  .slider-panel input[type="range"]::-webkit-slider-thumb { background: var(--rpi-blue); border-color: var(--navy); }
+  .slider-panel .slider-range { font-size: 9px; color: rgba(255,255,255,0.4); }
+
+  .dash-layout { display: grid; grid-template-columns: 1fr 280px; gap: 16px; align-items: start; }
+  .dash-main { min-width: 0; }
+  .dash-sidebar { position: sticky; top: 60px; }
+  .output-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px; margin-bottom: 10px;
+    border-left: 4px solid var(--rpi-blue);
+  }
+  .output-card.deficit { border-left-color: var(--red); }
+  .output-card.surplus { border-left-color: var(--green); }
+  .output-card-label {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px;
+  }
+  .output-card-value { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1.1; }
+  .output-card.deficit .output-card-value { color: var(--red); }
+  .output-card.surplus .output-card-value { color: var(--green); }
+  .output-card-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+  @media (max-width: 768px) {
+    .slider-panel { grid-template-columns: 1fr; gap: 12px; }
+    .dash-layout { grid-template-columns: 1fr; }
+    .dash-sidebar { position: static; }
+  }
+
   /* ========== COLLAPSIBLE SECTIONS ========== */
   .collapsible { margin-bottom: 16px; }
   .collapsible-header {
@@ -631,102 +670,285 @@
   <div class="container">
     <div class="print-tab-title">Income Replacement Analysis</div>
 
-    <!-- ===== SECTION 1: CURRENT INCOME ===== -->
-    <div class="collapsible">
-      <div class="collapsible-header" onclick="toggleSection(this)">
-        <span class="chevron">&#x25BC;</span>
-        <span class="section-title-text">Current Retirement Income</span>
-        <span class="section-summary" id="s1Summary">$15,518/mo</span>
+    <!-- ===== CONTROL PANEL: 3 SLIDERS ===== -->
+    <div class="slider-panel">
+      <div class="slider-cell">
+        <div class="rate-label">Federal Tax Bracket</div>
+        <div class="rate-display"><span id="taxValue">22</span><span>%</span></div>
+        <div class="slider-wrap">
+          <input type="range" id="taxSlider" min="10" max="37" value="22" step="1">
+          <div class="slider-range"><span>10%</span><span>22%</span><span>37%</span></div>
+        </div>
       </div>
-      <div class="collapsible-content">
-
-        <!-- Tax Bracket Slider -->
-        <div class="card slider-section">
-          <div class="rate-display"><span id="taxValue">22</span><span>%</span></div>
-          <div class="rate-label">Federal Tax Bracket</div>
-          <div class="slider-wrap">
-            <input type="range" id="taxSlider" min="10" max="37" value="22" step="1">
-            <div class="slider-range"><span>10%</span><span>12%</span><span>22%</span><span>24%</span><span>32%</span><span>37%</span></div>
-          </div>
-          <div class="tax-info">
-            <div class="tax-info-item">
-              <div class="tax-info-value">$30,000</div>
-              <div class="tax-info-label">Standard Deduction (MFJ)</div>
-            </div>
-            <div class="tax-info-item">
-              <div class="tax-info-value" id="taxableIncome">$156,210</div>
-              <div class="tax-info-label">Taxable Income</div>
-            </div>
-            <div class="tax-info-item">
-              <div class="tax-info-value" id="effectiveRate">18.5%</div>
-              <div class="tax-info-label">Effective Rate (est.)</div>
-            </div>
-          </div>
+      <div class="slider-cell">
+        <div class="rate-label">Growth Rate</div>
+        <div class="rate-display"><span id="rateValue">6.0</span><span>%</span></div>
+        <div class="slider-wrap">
+          <input type="range" id="rateSlider" min="0" max="120" value="60" step="1">
+          <div class="slider-range"><span>0%</span><span>6%</span><span>12%</span></div>
         </div>
-
-        <!-- Income Sources (GROSS focused) -->
-        <div class="card">
-          <div class="card-title">Income Sources &mdash; Gross Amounts</div>
-          <div class="tbl-wrap">
-            <table class="tbl">
-              <thead>
-                <tr><th>Source</th><th>Owner</th><th>Gross/Mo</th><th>Gross/Yr</th><th>Tax Treatment</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Social Security<br><span class="income-type">US Treasury</span></td>
-                  <td>Stephen</td><td>$4,428</td><td>$53,136</td>
-                  <td style="text-align:left; font-size:11px;">15% fed withholding (provisional)</td>
-                </tr>
-                <tr class="mhp-row">
-                  <td>Mahaska Health<span class="mhp-badge">Retiring</span><br><span class="income-type">Earned income &mdash; Biweekly</span></td>
-                  <td>Stephen</td><td>$8,689</td><td>$104,275</td>
-                  <td style="text-align:left; font-size:11px; text-decoration:none; color:var(--red);">Fed + 3% IA state (earned income)</td>
-                </tr>
-                <tr>
-                  <td>IPERS Pension<br><span class="income-type">State pension &mdash; Retirement income</span></td>
-                  <td>Stephen</td><td>$4,323</td><td>$51,876</td>
-                  <td style="text-align:left; font-size:11px;">Fed only &mdash; <strong>NO Iowa state tax</strong></td>
-                </tr>
-                <tr>
-                  <td>Social Security<br><span class="income-type">US Treasury</span></td>
-                  <td>Joyce</td><td>$1,934</td><td>$23,208</td>
-                  <td style="text-align:left; font-size:11px;">15% fed withholding (provisional)</td>
-                </tr>
-                <tr class="subtotal-row">
-                  <td>Current Gross (with MHP)</td><td></td><td>$19,374</td><td>$232,495</td><td></td>
-                </tr>
-                <tr class="posthp-row">
-                  <td>Post-Retirement Gross (no MHP)</td><td></td><td>$10,685</td><td>$128,220</td><td></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Gross vs Net comparison -->
-          <div class="comparison-grid" style="margin-top:12px;">
-            <div class="comp-box current">
-              <div class="comp-label">Current Gross Income</div>
-              <div class="comp-value">$19,374<span style="font-size:14px;">/mo</span></div>
-              <div class="comp-detail" id="currentNetDisplay">NET: $15,518/mo after taxes</div>
-            </div>
-            <div class="comp-box replacement">
-              <div class="comp-label">Post-Retirement Gross</div>
-              <div class="comp-value">$10,685<span style="font-size:14px;">/mo</span></div>
-              <div class="comp-detail" id="postRetireNetDisplay">NET: $8,910/mo after taxes</div>
-            </div>
-          </div>
+      </div>
+      <div class="slider-cell">
+        <div class="rate-label">Interest Rate</div>
+        <div class="rate-display"><span id="intValue">3.0</span><span>%</span></div>
+        <div class="slider-wrap">
+          <input type="range" id="intSlider" min="0" max="60" value="30" step="1">
+          <div class="slider-range"><span>0%</span><span>3%</span><span>6%</span></div>
         </div>
-
-        <!-- Gap Banner -->
-        <div class="gap-banner has-gap" id="s1Gap">
-          <div class="gap-banner-label">Income Gap When Stephen Retires from Mahaska Health</div>
-          <div class="gap-banner-value" id="s1GapGross">&minus;$8,689/mo gross</div>
-          <div class="gap-banner-sub" id="s1GapNet">NET gap: &minus;$6,608/mo (&minus;$79,290/yr)</div>
-        </div>
-
       </div>
     </div>
+
+    <!-- ===== DASHBOARD: LEFT GRIDS + RIGHT OUTPUTS ===== -->
+    <div class="dash-layout">
+
+      <!-- LEFT: Collapsible Grids -->
+      <div class="dash-main">
+
+        <!-- SECTION 1: CURRENT INCOME -->
+        <div class="collapsible">
+          <div class="collapsible-header" onclick="toggleSection(this)">
+            <span class="chevron">&#x25BC;</span>
+            <span class="section-title-text">Current Retirement Income</span>
+          </div>
+          <div class="collapsible-content">
+            <div class="card">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr><th>Source</th><th>Owner</th><th>Gross/Mo</th><th>NET/Mo</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Social Security<br><span class="income-type">US Treasury &mdash; 15% fed</span></td>
+                      <td>Stephen</td><td>$4,428</td><td id="ssStNet">$3,764</td>
+                    </tr>
+                    <tr class="mhp-row">
+                      <td>Mahaska Health<span class="mhp-badge">Retiring</span><br><span class="income-type">Biweekly &mdash; Fed + 3% IA</span></td>
+                      <td>Stephen</td><td>$8,689</td><td id="mhpNet">$6,608</td>
+                    </tr>
+                    <tr>
+                      <td>IPERS Pension<br><span class="income-type">Fed only &mdash; <strong>NO Iowa tax</strong></span></td>
+                      <td>Stephen</td><td>$4,323</td><td id="ipersNet">$3,372</td>
+                    </tr>
+                    <tr>
+                      <td>Social Security<br><span class="income-type">US Treasury &mdash; 15% fed</span></td>
+                      <td>Joyce</td><td>$1,934</td><td id="ssJNet">$1,644</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                      <td>Current Total</td><td></td><td>$19,374</td><td id="curTotalNet">$15,388</td>
+                    </tr>
+                    <tr class="posthp-row">
+                      <td>Post-Retirement</td><td></td><td>$10,685</td><td id="postTotalNet">$8,780</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2A: GROWTH -->
+        <div class="collapsible">
+          <div class="collapsible-header" onclick="toggleSection(this)">
+            <span class="chevron">&#x25BC;</span>
+            <span class="section-title-text">Potential Earnings (Growth)</span>
+          </div>
+          <div class="collapsible-content">
+            <div class="card">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr><th>Account</th><th>Value</th><th>Gross/Yr</th><th>NET/Yr</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Schwab Roth<br><span class="tax-note tax-free">Tax-Free</span></td>
+                      <td>$196,887</td>
+                      <td id="rothGross">$11,813</td>
+                      <td id="rothNet" class="tax-free">$11,813</td>
+                    </tr>
+                    <tr>
+                      <td>North American NQ<br><span class="tax-note">10% free corridor</span></td>
+                      <td>$426,802</td>
+                      <td id="naGross">$25,608</td>
+                      <td id="naNet">$19,974</td>
+                    </tr>
+                    <tr>
+                      <td>Joyce IRA<br><span class="tax-note">Fed only, IA exempt</span></td>
+                      <td>$133,629</td>
+                      <td id="joyceGross">$8,018</td>
+                      <td id="joyceNet">$6,254</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td>Growth Total</td>
+                      <td>$757,318</td>
+                      <td id="growthGross">$45,439</td>
+                      <td id="growthNet">$38,041</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2B: FIXED -->
+        <div class="collapsible">
+          <div class="collapsible-header" onclick="toggleSection(this)">
+            <span class="chevron">&#x25BC;</span>
+            <span class="section-title-text">Hypothetical Income (Fixed)</span>
+          </div>
+          <div class="collapsible-content">
+            <div class="card">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr><th>Account</th><th>Value</th><th>Gross/Yr</th><th>NET/Yr</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Checking #1 + #2</td>
+                      <td>$60,000</td>
+                      <td id="chkGross">$1,800</td>
+                      <td id="chkNet">$1,404</td>
+                    </tr>
+                    <tr>
+                      <td>Savings</td>
+                      <td>$110,000</td>
+                      <td id="savGross">$3,300</td>
+                      <td id="savNet">$2,574</td>
+                    </tr>
+                    <tr>
+                      <td>EJ NQ Bonds</td>
+                      <td>$95,000</td>
+                      <td id="ejGross">$2,850</td>
+                      <td id="ejNet">$2,223</td>
+                    </tr>
+                    <tr>
+                      <td>CDs (Inherited)</td>
+                      <td>$80,000</td>
+                      <td id="cdGross">$2,400</td>
+                      <td id="cdNet">$1,872</td>
+                    </tr>
+                    <tr>
+                      <td>WF Inheritance (After Yr 1)</td>
+                      <td>$97,000</td>
+                      <td id="wfGross">$2,910</td>
+                      <td id="wfNet">$2,270</td>
+                    </tr>
+                    <tr>
+                      <td>RiverSource DB<br><span class="tax-note tax-free">Inherited &mdash; Tax-Free</span></td>
+                      <td>$200,000</td>
+                      <td id="rsGross">$6,000</td>
+                      <td id="rsNet" class="tax-free">$6,000</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td>Fixed Total</td>
+                      <td>$642,000</td>
+                      <td id="fixedGross">$19,260</td>
+                      <td id="fixedNet">$16,343</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: GMIB -->
+        <div class="collapsible">
+          <div class="collapsible-header" onclick="toggleSection(this)">
+            <span class="chevron">&#x25BC;</span>
+            <span class="section-title-text">Nassau GMIB Allocation</span>
+          </div>
+          <div class="collapsible-content">
+            <div class="card">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr><th>Item</th><th>Annual</th><th>Monthly</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>GMIB Gross (Guaranteed for Life)</td>
+                      <td style="font-weight:800;">$145,152</td>
+                      <td>$12,096</td>
+                    </tr>
+                    <tr>
+                      <td>Federal Tax at <span id="gmibTaxPct">22</span>%<br><span class="tax-note">IRA &mdash; Fed only, IA exempt</span></td>
+                      <td style="color:var(--red);" id="gmibTaxAmt">&minus;$31,933</td>
+                      <td style="color:var(--red);" id="gmibTaxMo">&minus;$2,661</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                      <td>GMIB NET</td>
+                      <td id="gmibNetYr">$113,219</td>
+                      <td id="gmibNetMo">$9,435</td>
+                    </tr>
+                    <tr>
+                      <td>Needed for Income Gap</td>
+                      <td style="color:var(--red);" id="gmibNeededYr">&minus;$24,906</td>
+                      <td style="color:var(--red);" id="gmibNeededMo">&minus;$2,076</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td><strong>Available for Estate (JH Premium)</strong></td>
+                      <td id="estateAvailYr">$88,313</td>
+                      <td id="estateAvailMo">$7,359</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Output Sidebar -->
+      <div class="dash-sidebar">
+
+        <div class="output-card" id="outIncome">
+          <div class="output-card-label">Post-Retirement NET</div>
+          <div class="output-card-value" id="outIncomeVal">$8,780/mo</div>
+          <div class="output-card-sub" id="outIncomeSub">Gap: &minus;$6,608/mo</div>
+        </div>
+
+        <div class="output-card" id="outGrowth">
+          <div class="output-card-label">+ Growth Earnings</div>
+          <div class="output-card-value" id="outGrowthVal">$3,170/mo</div>
+          <div class="output-card-sub" id="outGrowthSub">Remaining gap: &minus;$3,438/mo</div>
+        </div>
+
+        <div class="output-card" id="outFixed">
+          <div class="output-card-label">+ Fixed Income</div>
+          <div class="output-card-value" id="outFixedVal">$1,362/mo</div>
+          <div class="output-card-sub" id="outFixedSub">Remaining gap: &minus;$2,076/mo</div>
+        </div>
+
+        <div class="output-card" id="outGmib">
+          <div class="output-card-label">GMIB Fills Gap</div>
+          <div class="output-card-value" id="outGmibVal">$9,435/mo</div>
+          <div class="output-card-sub" id="outGmibSub">Uses $24,906/yr of GMIB</div>
+        </div>
+
+        <div class="estate-available" style="margin-top:6px;">
+          <div class="estate-available-label">Estate Planning</div>
+          <div class="estate-available-value" id="estateAvailBig">$88,313/yr</div>
+          <div class="estate-available-sub">Available for JH premium</div>
+          <div class="estate-link" onclick="switchTab('estate')">Estate Options &rarr;</div>
+        </div>
+
+        <div class="output-card" style="margin-top:10px; border-left-color:var(--charcoal);">
+          <div class="output-card-label">Reserve Runway (Without GMIB)</div>
+          <div class="output-card-value" id="runwayYears" style="font-size:28px;">2.0</div>
+          <div class="output-card-sub">years on HSA ($50K) alone</div>
+        </div>
+
+      </div>
+
+    </div><!-- end dash-layout -->
+
+  </div>
+</div>
 
     <!-- ===== SECTION 2A: GROWTH INVESTMENTS ===== -->
     <div class="collapsible">
@@ -1261,99 +1483,92 @@
   function updateAll() {
     var tb = parseInt(taxSlider.value) / 100;
     var rr = rorSlider.value / 10 / 100;
-    var rrPct = (rr * 100).toFixed(1);
+    var ir = intSlider.value / 10 / 100;
     var tbPct = Math.round(tb * 100);
 
-    // TAX DISPLAY
+    // SLIDER DISPLAYS
     document.getElementById('taxValue').textContent = tbPct;
-    var taxableInc = Math.max(0, CURRENT_GROSS_YR - STANDARD_DEDUCTION);
-    document.getElementById('taxableIncome').textContent = fmt(taxableInc);
-    document.getElementById('effectiveRate').textContent = (tb * (taxableInc / CURRENT_GROSS_YR) * 100).toFixed(1) + '%';
+    document.getElementById('rateValue').textContent = (rr * 100).toFixed(1);
+    document.getElementById('intValue').textContent = (ir * 100).toFixed(1);
 
-    // SECTION 1: INCOME
-    var ssStNet = INCOME.stephenSS * 0.85;
-    var mhpNet = INCOME.mhp * (1 - tb - 0.03);
-    var ipersNet = INCOME.ipers * (1 - tb); // NO Iowa tax on retirement income
-    var ssJNet = INCOME.joyceSS * 0.85;
-    var curNetYr = ssStNet + mhpNet + ipersNet + ssJNet;
-    var postNetYr = ssStNet + ipersNet + ssJNet;
-    var gapNetYr = curNetYr - postNetYr;
-    var gapNetMo = gapNetYr / 12;
+    // SECTION 1: CURRENT INCOME (NET)
+    var ssStN = INCOME.stephenSS * 0.85;
+    var mhpN = INCOME.mhp * (1 - tb - 0.03);
+    var ipersN = INCOME.ipers * (1 - tb);
+    var ssJN = INCOME.joyceSS * 0.85;
+    var curN = ssStN + mhpN + ipersN + ssJN;
+    var postN = ssStN + ipersN + ssJN;
+    var gapN = curN - postN; // annual NET gap
 
-    document.getElementById('currentNetDisplay').textContent = 'NET: ' + fmt(curNetYr / 12) + '/mo after taxes';
-    document.getElementById('postRetireNetDisplay').textContent = 'NET: ' + fmt(postNetYr / 12) + '/mo after taxes';
-    document.getElementById('s1Summary').textContent = fmt(curNetYr / 12) + '/mo';
-    document.getElementById('s1GapGross').textContent = '\u2212' + fmt(MHP_GAP_GROSS_YR / 12) + '/mo gross';
-    document.getElementById('s1GapNet').textContent = 'NET gap: \u2212' + fmt(gapNetMo) + '/mo (\u2212' + fmt(gapNetYr) + '/yr)';
+    document.getElementById('ssStNet').textContent = fmt(ssStN / 12);
+    document.getElementById('mhpNet').textContent = fmt(mhpN / 12);
+    document.getElementById('ipersNet').textContent = fmt(ipersN / 12);
+    document.getElementById('ssJNet').textContent = fmt(ssJN / 12);
+    document.getElementById('curTotalNet').textContent = fmt(curN / 12);
+    document.getElementById('postTotalNet').textContent = fmt(postN / 12);
 
-    // SECTION 2A: GROWTH INVESTMENTS
-    document.getElementById('rateValue').textContent = rrPct;
+    // Output card: Income
+    document.getElementById('outIncomeVal').textContent = fmt(postN / 12) + '/mo';
+    var gapMo = gapN / 12;
+    document.getElementById('outIncomeSub').textContent = 'Gap: \u2212' + fmt(gapMo) + '/mo';
+    document.getElementById('outIncome').className = 'output-card deficit';
+
+    // SECTION 2A: GROWTH
     var grG = 0, grN = 0;
     GROWTH_ACCOUNTS.forEach(function(a) {
       var g = a.value * rr, r = a.taxable ? tb : 0, n = g * (1 - r);
       grG += g; grN += n;
       document.getElementById(a.id + 'Gross').textContent = fmt(g);
       document.getElementById(a.id + 'Net').textContent = fmt(n);
-      document.getElementById(a.id + 'Mo').textContent = fmt(n / 12);
-      if (a.taxable) { var el = document.getElementById(a.id + 'TaxRate'); if (el) el.textContent = tbPct + '%'; }
     });
     document.getElementById('growthGross').textContent = fmt(grG);
     document.getElementById('growthNet').textContent = fmt(grN);
-    document.getElementById('growthMo').textContent = fmt(grN / 12);
-    document.getElementById('s2aSummary').textContent = fmt(grN / 12) + '/mo';
 
-    var gapAfterGrowthYr = gapNetYr - grN;
-    var gapAfterGrowthMo = gapAfterGrowthYr / 12;
-    var s2aG = document.getElementById('s2aGap');
-    if (gapAfterGrowthMo > 1) {
-      s2aG.className = 'gap-banner has-gap';
-      document.getElementById('s2aGapLabel').textContent = 'Gap After Growth Earnings';
-      document.getElementById('s2aGapValue').textContent = '\u2212' + fmt(gapAfterGrowthMo) + '/mo';
-      document.getElementById('s2aGapSub').textContent = 'Passed to Fixed Investments below';
-    } else {
-      s2aG.className = 'gap-banner filled';
-      document.getElementById('s2aGapLabel').textContent = 'Gap Filled by Growth Earnings';
-      document.getElementById('s2aGapValue').textContent = fmtSigned(Math.abs(gapAfterGrowthMo)) + '/mo surplus';
-      document.getElementById('s2aGapSub').textContent = 'Fixed income and GMIB are bonus';
-    }
+    var gapAfterGrowth = gapN - grN;
+    document.getElementById('outGrowthVal').textContent = fmt(grN / 12) + '/mo';
+    document.getElementById('outGrowthSub').textContent = 'Remaining: \u2212' + fmt(Math.max(0, gapAfterGrowth) / 12) + '/mo';
+    document.getElementById('outGrowth').className = gapAfterGrowth > 0 ? 'output-card deficit' : 'output-card surplus';
 
-    // SECTION 2B: FIXED INVESTMENTS
-    var ir = intSlider.value / 10 / 100;
-    var irPct = (ir * 100).toFixed(1);
-    document.getElementById('intValue').textContent = irPct;
+    // SECTION 2B: FIXED
     var fxG = 0, fxN = 0;
     FIXED_ACCOUNTS.forEach(function(a) {
-      var g = a.value * ir, n = g * (1 - tb);
+      var g = a.value * ir, n = a.taxable ? g * (1 - tb) : g;
       fxG += g; fxN += n;
       document.getElementById(a.id + 'Gross').textContent = fmt(g);
       document.getElementById(a.id + 'Net').textContent = fmt(n);
-      document.getElementById(a.id + 'Mo').textContent = fmt(n / 12);
-      var el = document.getElementById(a.id + 'TaxRate'); if (el) el.textContent = tbPct + '%';
     });
     document.getElementById('fixedGross').textContent = fmt(fxG);
     document.getElementById('fixedNet').textContent = fmt(fxN);
-    document.getElementById('fixedMo').textContent = fmt(fxN / 12);
-    document.getElementById('s2bSummary').textContent = fmt(fxN / 12) + '/mo';
 
-    var wdN = grN + fxN; // total withdrawals for GMIB section
-    var remGapYr = gapNetYr - wdN, remGapMo = remGapYr / 12;
-    var s2G = document.getElementById('s2Gap');
-    if (remGapMo > 1) {
-      s2G.className = 'gap-banner has-gap';
-      document.getElementById('s2GapLabel').textContent = 'Remaining Gap After Growth + Fixed Income';
-      document.getElementById('s2GapValue').textContent = '\u2212' + fmt(remGapMo) + '/mo';
-      document.getElementById('s2GapSub').textContent = 'This is what the Nassau GMIB needs to cover';
-    } else {
-      s2G.className = 'gap-banner filled';
-      document.getElementById('s2GapLabel').textContent = 'Gap Fully Covered by Growth + Fixed Income';
-      document.getElementById('s2GapValue').textContent = fmtSigned(Math.abs(remGapMo)) + '/mo surplus';
-      document.getElementById('s2GapSub').textContent = 'GMIB is 100% available for estate planning';
-    }
+    var gapAfterAll = gapN - grN - fxN;
+    document.getElementById('outFixedVal').textContent = fmt(fxN / 12) + '/mo';
+    document.getElementById('outFixedSub').textContent = gapAfterAll > 0 ? 'Remaining: \u2212' + fmt(gapAfterAll / 12) + '/mo' : 'Gap filled + ' + fmt(Math.abs(gapAfterAll) / 12) + '/mo surplus';
+    document.getElementById('outFixed').className = gapAfterAll > 0 ? 'output-card deficit' : 'output-card surplus';
 
-    // RUNWAY CALCULATION
-    var annualGapAfterAll = Math.max(0, remGapYr);
-    var runway = annualGapAfterAll > 0 ? RESERVES_LIQUID / annualGapAfterAll : 99;
-    document.getElementById('runwayReserves').textContent = fmt(RESERVES_LIQUID);
+    // SECTION 3: GMIB
+    var gmibTax = GMIB_GROSS * tb;
+    var gmibNet = GMIB_GROSS - gmibTax;
+    var needed = Math.max(0, gapAfterAll);
+    var estate = gmibNet - needed;
+
+    document.getElementById('gmibTaxPct').textContent = tbPct;
+    document.getElementById('gmibTaxAmt').textContent = '\u2212' + fmt(gmibTax);
+    document.getElementById('gmibTaxMo').textContent = '\u2212' + fmt(gmibTax / 12);
+    document.getElementById('gmibNetYr').textContent = fmt(gmibNet);
+    document.getElementById('gmibNetMo').textContent = fmt(gmibNet / 12);
+    document.getElementById('gmibNeededYr').textContent = needed > 0 ? '\u2212' + fmt(needed) : '$0';
+    document.getElementById('gmibNeededMo').textContent = needed > 0 ? '\u2212' + fmt(needed / 12) : '$0';
+    document.getElementById('estateAvailYr').textContent = fmt(estate);
+    document.getElementById('estateAvailMo').textContent = fmt(estate / 12);
+    document.getElementById('estateAvailBig').textContent = fmt(estate) + '/yr';
+
+    document.getElementById('outGmibVal').textContent = fmt(gmibNet / 12) + '/mo';
+    document.getElementById('outGmibSub').textContent = needed > 0 ? 'Uses ' + fmt(needed) + '/yr for gap' : 'All available for estate';
+    document.getElementById('outGmib').className = 'output-card surplus';
+
+    // RUNWAY
+    var annualGap = Math.max(0, gapAfterAll);
+    var runway = annualGap > 0 ? RESERVES_LIQUID / annualGap : 99;
     document.getElementById('runwayYears').textContent = runway >= 99 ? '\u221E' : runway.toFixed(1);
 
     // SECTION 3: GMIB
