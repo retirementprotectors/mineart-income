@@ -403,7 +403,7 @@
   .slider-panel {
     background: var(--navy); border-radius: 10px;
     padding: 16px 20px; margin-bottom: 16px;
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    display: grid; grid-template-columns: auto repeat(3, 1fr); gap: 16px;
   }
   .slider-panel .slider-cell { text-align: center; }
   .slider-panel .slider-cell .rate-display { font-size: 32px; color: var(--white); }
@@ -434,8 +434,43 @@
   .estate-bottom-cta { font-size: 12px; font-weight: 700; color: var(--rpi-blue); margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
   .estate-bottom:hover .estate-bottom-cta { color: var(--white); }
 
+  /* ========== RETIREMENT TOGGLE ========== */
+  .toggle-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .toggle-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--rpi-blue); margin-bottom: 6px; }
+  .toggle-wrap { display: flex; align-items: center; gap: 8px; }
+  .toggle-status { font-size: 13px; font-weight: 800; }
+  .toggle-status.working { color: #4ade80; }
+  .toggle-status.retired { color: #ff8a8a; }
+  .toggle-switch {
+    position: relative; width: 52px; height: 28px; cursor: pointer;
+  }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-track {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: #4ade80; border-radius: 14px; transition: 0.3s;
+  }
+  .toggle-switch input:checked + .toggle-track { background: #ff8a8a; }
+  .toggle-knob {
+    position: absolute; top: 3px; left: 3px;
+    width: 22px; height: 22px; background: white;
+    border-radius: 50%; transition: 0.3s;
+  }
+  .toggle-switch input:checked ~ .toggle-knob { left: 27px; }
+
+  .tbl tbody tr.mhp-working { background: #f0fdf4; }
+  .tbl tbody tr.mhp-working td { color: #16a34a; text-decoration: none; }
+  .tbl tbody tr.mhp-working td:first-child { color: #16a34a; }
+  .mhp-badge-working {
+    display: inline-block; font-size: 8px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    padding: 2px 6px; border-radius: 3px;
+    background: #16a34a; color: var(--white);
+    margin-left: 6px; vertical-align: middle;
+  }
+
   @media (max-width: 768px) {
-    .slider-panel { grid-template-columns: 1fr; gap: 12px; }
+    .slider-panel { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .toggle-cell { grid-column: 1 / -1; }
     .section-output-value { font-size: 13px; }
     .estate-bottom-value { font-size: 28px; }
   }
@@ -674,6 +709,15 @@
 
     <!-- ===== CONTROL PANEL: 3 SLIDERS ===== -->
     <div class="slider-panel">
+      <div class="toggle-cell">
+        <div class="toggle-label">Stephen</div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="retiredToggle" onchange="updateAll()">
+          <div class="toggle-track"></div>
+          <div class="toggle-knob"></div>
+        </label>
+        <div class="toggle-status working" id="toggleStatus">Working</div>
+      </div>
       <div class="slider-cell">
         <div class="rate-label">Federal Tax Bracket</div>
         <div class="rate-display"><span id="taxValue">22</span><span>%</span></div>
@@ -706,7 +750,7 @@
         <div class="collapsible">
           <div class="collapsible-header" onclick="toggleSection(this)">
             <span class="chevron">&#x25BC;</span>
-            <span class="section-title-text">Current Retirement Income</span>
+            <span class="section-title-text">Current Income</span>
             <div class="section-output">
               <div class="section-output-value deficit" id="outGapVal">&minus;$6,608/mo</div>
               <div class="section-output-sub">NET income gap</div>
@@ -720,13 +764,13 @@
                     <tr><th>Source</th><th>Owner</th><th>Gross/Mo</th><th>NET/Mo</th></tr>
                   </thead>
                   <tbody>
+                    <tr id="mhpRow" class="mhp-row">
+                      <td id="mhpLabel">Mahaska Health<span class="mhp-badge" id="mhpBadge">Retiring</span><br><span class="income-type">Biweekly &mdash; Fed + 3% IA</span></td>
+                      <td>Stephen</td><td>$8,689</td><td id="mhpNet">$6,608</td>
+                    </tr>
                     <tr>
                       <td>Social Security<br><span class="income-type">US Treasury &mdash; 15% fed</span></td>
                       <td>Stephen</td><td>$4,428</td><td id="ssStNet">$3,764</td>
-                    </tr>
-                    <tr class="mhp-row">
-                      <td>Mahaska Health<span class="mhp-badge">Retiring</span><br><span class="income-type">Biweekly &mdash; Fed + 3% IA</span></td>
-                      <td>Stephen</td><td>$8,689</td><td id="mhpNet">$6,608</td>
                     </tr>
                     <tr>
                       <td>IPERS Pension<br><span class="income-type">Fed only &mdash; <strong>NO Iowa tax</strong></span></td>
@@ -1461,20 +1505,39 @@
     var rr = rorSlider.value / 10 / 100;
     var ir = intSlider.value / 10 / 100;
     var tbPct = Math.round(tb * 100);
+    var isRetired = document.getElementById('retiredToggle').checked;
 
     // SLIDER DISPLAYS
     document.getElementById('taxValue').textContent = tbPct;
     document.getElementById('rateValue').textContent = (rr * 100).toFixed(1);
     document.getElementById('intValue').textContent = (ir * 100).toFixed(1);
 
+    // TOGGLE DISPLAY
+    var statusEl = document.getElementById('toggleStatus');
+    var mhpRow = document.getElementById('mhpRow');
+    var mhpBadge = document.getElementById('mhpBadge');
+    if (isRetired) {
+      statusEl.textContent = 'Retired';
+      statusEl.className = 'toggle-status retired';
+      mhpRow.className = 'mhp-row';
+      mhpBadge.textContent = 'Retiring';
+      mhpBadge.className = 'mhp-badge';
+    } else {
+      statusEl.textContent = 'Working';
+      statusEl.className = 'toggle-status working';
+      mhpRow.className = 'mhp-working';
+      mhpBadge.textContent = 'Active';
+      mhpBadge.className = 'mhp-badge-working';
+    }
+
     // SECTION 1: CURRENT INCOME (NET)
     var ssStN = INCOME.stephenSS * 0.85;
     var mhpN = INCOME.mhp * (1 - tb - 0.03);
     var ipersN = INCOME.ipers * (1 - tb);
     var ssJN = INCOME.joyceSS * 0.85;
-    var curN = ssStN + mhpN + ipersN + ssJN;
+    var curN = ssStN + (isRetired ? 0 : mhpN) + ipersN + ssJN;
     var postN = ssStN + ipersN + ssJN;
-    var gapN = curN - postN; // annual NET gap
+    var gapN = isRetired ? (mhpN) : 0; // gap only exists when retired
 
     document.getElementById('ssStNet').textContent = fmt(ssStN / 12);
     document.getElementById('mhpNet').textContent = fmt(mhpN / 12);
@@ -1483,11 +1546,20 @@
     document.getElementById('curTotalNet').textContent = fmt(curN / 12);
     document.getElementById('postTotalNet').textContent = fmt(postN / 12);
 
-    // Section 1 output: gap in header
+    // Section 1 output: gap or no gap
     var gapMo = gapN / 12;
     var gapEl = document.getElementById('outGapVal');
-    gapEl.textContent = '\u2212' + fmt(gapMo) + '/mo';
-    gapEl.className = 'section-output-value deficit';
+    if (isRetired && gapN > 0) {
+      gapEl.textContent = '\u2212' + fmt(gapMo) + '/mo';
+      gapEl.className = 'section-output-value deficit';
+      document.querySelector('#outGapVal + .section-output-sub').textContent = 'NET income gap';
+    } else {
+      gapEl.textContent = fmt(curN / 12) + '/mo';
+      gapEl.className = 'section-output-value surplus';
+      document.querySelector('#outGapVal + .section-output-sub').textContent = 'total NET income';
+    }
+    document.getElementById('curTotalNet').textContent = fmt(curN / 12);
+    document.getElementById('postTotalNet').textContent = fmt(postN / 12);
 
     // SECTION 2A: GROWTH
     var grG = 0, grN = 0;
