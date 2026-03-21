@@ -728,28 +728,26 @@
       </div>
     </div>
 
-    <!-- ===== SECTION 2: AVAILABLE WITHDRAWALS ===== -->
+    <!-- ===== SECTION 2A: GROWTH INVESTMENTS ===== -->
     <div class="collapsible">
       <div class="collapsible-header" onclick="toggleSection(this)">
         <span class="chevron">&#x25BC;</span>
-        <span class="section-title-text">Available Income &amp; Withdrawals</span>
-        <span class="section-summary" id="s2Summary">$0/mo</span>
+        <span class="section-title-text">Potential Earnings &amp; Distributions (Growth)</span>
+        <span class="section-summary" id="s2aSummary">$0/mo</span>
       </div>
       <div class="collapsible-content">
 
-        <!-- ROR Slider -->
         <div class="card slider-section">
           <div class="rate-display"><span id="rateValue">5.0</span><span>%</span></div>
-          <div class="rate-label">Assumed Rate of Return</div>
+          <div class="rate-label">Assumed Growth Rate</div>
           <div class="slider-wrap">
             <input type="range" id="rateSlider" min="0" max="100" value="50" step="1">
             <div class="slider-range"><span>0%</span><span>2.5%</span><span>5%</span><span>7.5%</span><span>10%</span></div>
           </div>
         </div>
 
-        <!-- Withdrawal Table (GROSS focused) -->
         <div class="card">
-          <div class="card-title">Sustainable Withdrawals &mdash; Earnings Only, Principal Intact</div>
+          <div class="card-title">Growth Investments &mdash; Earnings Only, Principal Intact</div>
           <div class="tbl-wrap">
             <table class="tbl">
               <thead>
@@ -763,14 +761,6 @@
                   <td class="tax-free">0%</td>
                   <td id="rothNet" class="tax-free">$9,844</td>
                   <td id="rothMo" class="tax-free">$820</td>
-                </tr>
-                <tr>
-                  <td>Edward Jones NQ<br><span class="tax-note">Joint &mdash; 3.8% confirmed yield</span></td>
-                  <td>$95,000</td>
-                  <td id="ejGross">$3,610</td>
-                  <td id="ejTaxRate">22%</td>
-                  <td id="ejNet">$2,816</td>
-                  <td id="ejMo">$235</td>
                 </tr>
                 <tr>
                   <td>North American NQ<br><span class="tax-note">VersaChoice10 &mdash; 10% free corridor</span></td>
@@ -789,23 +779,111 @@
                   <td id="joyceMo">$434</td>
                 </tr>
                 <tr class="total-row">
-                  <td>TOTAL</td>
-                  <td>$852,318</td>
-                  <td id="totalGross">$41,475</td>
+                  <td>Growth Total</td>
+                  <td>$757,318</td>
+                  <td id="growthGross">$37,866</td>
                   <td></td>
-                  <td id="totalNet">$34,516</td>
-                  <td id="totalMo">$2,876</td>
+                  <td id="growthNet">$31,700</td>
+                  <td id="growthMo">$2,642</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- Remaining Gap -->
+        <div class="gap-banner has-gap" id="s2aGap">
+          <div class="gap-banner-label" id="s2aGapLabel">Gap After Growth Earnings</div>
+          <div class="gap-banner-value" id="s2aGapValue">&minus;$3,966/mo</div>
+          <div class="gap-banner-sub" id="s2aGapSub">Passed to Fixed Investments below</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== SECTION 2B: FIXED INVESTMENTS ===== -->
+    <div class="collapsible">
+      <div class="collapsible-header" onclick="toggleSection(this)">
+        <span class="chevron">&#x25BC;</span>
+        <span class="section-title-text">Hypothetical Income (Fixed Investments)</span>
+        <span class="section-summary" id="s2bSummary">$0/mo</span>
+      </div>
+      <div class="collapsible-content">
+
+        <div class="card slider-section">
+          <div class="rate-display"><span id="intValue">4.0</span><span>%</span></div>
+          <div class="rate-label">Assumed Interest Rate</div>
+          <div class="slider-wrap">
+            <input type="range" id="intSlider" min="0" max="80" value="40" step="1">
+            <div class="slider-range"><span>0%</span><span>2%</span><span>4%</span><span>6%</span><span>8%</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Fixed Income Accounts &mdash; Interest Earnings</div>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead>
+                <tr><th>Account</th><th>Value</th><th>Gross/Yr</th><th>Tax</th><th>NET/Yr</th><th>NET/Mo</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Edward Jones NQ Bonds<br><span class="tax-note">Joint brokerage &mdash; fixed income</span></td>
+                  <td>$95,000</td>
+                  <td id="ejGross">$3,800</td>
+                  <td id="ejTaxRate">22%</td>
+                  <td id="ejNet">$2,964</td>
+                  <td id="ejMo">$247</td>
+                </tr>
+                <tr>
+                  <td>CDs (Inherited, Maturing May)<br><span class="tax-note">From Joyce's mother &mdash; converting to cash</span></td>
+                  <td>$80,000</td>
+                  <td id="cdGross">$3,200</td>
+                  <td id="cdTaxRate">22%</td>
+                  <td id="cdNet">$2,496</td>
+                  <td id="cdMo">$208</td>
+                </tr>
+                <tr>
+                  <td>WF Inheritance (After Yr 1 Premium)<br><span class="tax-note">Remainder after JH Year 1 bridge</span></td>
+                  <td id="wfValue">$97,000</td>
+                  <td id="wfGross">$3,880</td>
+                  <td id="wfTaxRate">22%</td>
+                  <td id="wfNet">$3,026</td>
+                  <td id="wfMo">$252</td>
+                </tr>
+                <tr class="total-row">
+                  <td>Fixed Total</td>
+                  <td>$272,000</td>
+                  <td id="fixedGross">$10,880</td>
+                  <td></td>
+                  <td id="fixedNet">$8,486</td>
+                  <td id="fixedMo">$707</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Remaining Gap after Growth + Fixed -->
         <div class="gap-banner has-gap" id="s2Gap">
-          <div class="gap-banner-label" id="s2GapLabel">Remaining Gap After Withdrawals</div>
-          <div class="gap-banner-value" id="s2GapValue">&minus;$3,732/mo</div>
+          <div class="gap-banner-label" id="s2GapLabel">Remaining Gap After Growth + Fixed Income</div>
+          <div class="gap-banner-value" id="s2GapValue">&minus;$3,259/mo</div>
           <div class="gap-banner-sub" id="s2GapSub">This is what the Nassau GMIB needs to cover</div>
+        </div>
+
+        <!-- RUNWAY CALCULATION -->
+        <div class="card" style="margin-top:12px;">
+          <div class="card-title">Reserve Runway &mdash; Without the GMIB</div>
+          <div style="text-align:center; padding:10px;">
+            <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted);">If you lived on reserves alone to cover the remaining gap</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
+              Liquid reserves (Checking $60K + Savings $110K + HSA $50K + RiverSource ~$200K) = <strong id="runwayReserves">$420,000</strong>
+            </div>
+            <div style="font-size:48px; font-weight:800; color:var(--navy); margin-top:8px;" id="runwayYears">10.7</div>
+            <div style="font-size:14px; font-weight:700; color:var(--rpi-blue); text-transform:uppercase; letter-spacing:1px;">Years of Reserves</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:6px;">
+              Before needing the Nassau GMIB. The GMIB makes it <strong>permanent</strong>.
+            </div>
+          </div>
         </div>
 
       </div>
@@ -1201,14 +1279,22 @@
   var INCOME = { stephenSS: 53136, mhp: 104275, ipers: 51876, joyceSS: 23208 };
   var CURRENT_GROSS_YR = INCOME.stephenSS + INCOME.mhp + INCOME.ipers + INCOME.joyceSS;
   var MHP_GAP_GROSS_YR = INCOME.mhp;
-  var EJ_RATE = 0.038, EJ_VALUE = 95000;
-  var SLIDER_ACCOUNTS = [
+  // Growth accounts (variable return)
+  var GROWTH_ACCOUNTS = [
     { id: 'roth', value: 196887, taxable: false },
     { id: 'na', value: 426802, taxable: true },
     { id: 'joyce', value: 133629, taxable: true }
   ];
+  // Fixed accounts (interest rate)
+  var FIXED_ACCOUNTS = [
+    { id: 'ej', value: 95000, taxable: true },
+    { id: 'cd', value: 80000, taxable: true },
+    { id: 'wf', value: 97000, taxable: true } // $217K minus ~$120K Yr1 premium (Option A estimate)
+  ];
+  var RESERVES_LIQUID = 420000; // Checking $60K + Savings $110K + HSA $50K + RiverSource ~$200K
   var taxSlider = document.getElementById('taxSlider');
   var rorSlider = document.getElementById('rateSlider');
+  var intSlider = document.getElementById('intSlider');
 
   function fmt(n) { var a = Math.abs(Math.round(n)); return (n < 0 ? '-$' : '$') + a.toLocaleString('en-US'); }
   function fmtSigned(n) { var a = Math.abs(Math.round(n)); return (n >= 0 ? '+$' : '-$') + a.toLocaleString('en-US'); }
@@ -1241,40 +1327,75 @@
     document.getElementById('s1GapGross').textContent = '\u2212' + fmt(MHP_GAP_GROSS_YR / 12) + '/mo gross';
     document.getElementById('s1GapNet').textContent = 'NET gap: \u2212' + fmt(gapNetMo) + '/mo (\u2212' + fmt(gapNetYr) + '/yr)';
 
-    // SECTION 2: WITHDRAWALS
+    // SECTION 2A: GROWTH INVESTMENTS
     document.getElementById('rateValue').textContent = rrPct;
-    var ejG = EJ_VALUE * EJ_RATE, ejN = ejG * (1 - tb);
-    document.getElementById('ejGross').textContent = fmt(ejG);
-    document.getElementById('ejTaxRate').textContent = tbPct + '%';
-    document.getElementById('ejNet').textContent = fmt(ejN);
-    document.getElementById('ejMo').textContent = fmt(ejN / 12);
-    var wdG = ejG, wdN = ejN;
-    SLIDER_ACCOUNTS.forEach(function(a) {
+    var grG = 0, grN = 0;
+    GROWTH_ACCOUNTS.forEach(function(a) {
       var g = a.value * rr, r = a.taxable ? tb : 0, n = g * (1 - r);
-      wdG += g; wdN += n;
+      grG += g; grN += n;
       document.getElementById(a.id + 'Gross').textContent = fmt(g);
       document.getElementById(a.id + 'Net').textContent = fmt(n);
       document.getElementById(a.id + 'Mo').textContent = fmt(n / 12);
       if (a.taxable) { var el = document.getElementById(a.id + 'TaxRate'); if (el) el.textContent = tbPct + '%'; }
     });
-    document.getElementById('totalGross').textContent = fmt(wdG);
-    document.getElementById('totalNet').textContent = fmt(wdN);
-    document.getElementById('totalMo').textContent = fmt(wdN / 12);
-    document.getElementById('s2Summary').textContent = fmt(wdN / 12) + '/mo';
+    document.getElementById('growthGross').textContent = fmt(grG);
+    document.getElementById('growthNet').textContent = fmt(grN);
+    document.getElementById('growthMo').textContent = fmt(grN / 12);
+    document.getElementById('s2aSummary').textContent = fmt(grN / 12) + '/mo';
 
+    var gapAfterGrowthYr = gapNetYr - grN;
+    var gapAfterGrowthMo = gapAfterGrowthYr / 12;
+    var s2aG = document.getElementById('s2aGap');
+    if (gapAfterGrowthMo > 1) {
+      s2aG.className = 'gap-banner has-gap';
+      document.getElementById('s2aGapLabel').textContent = 'Gap After Growth Earnings';
+      document.getElementById('s2aGapValue').textContent = '\u2212' + fmt(gapAfterGrowthMo) + '/mo';
+      document.getElementById('s2aGapSub').textContent = 'Passed to Fixed Investments below';
+    } else {
+      s2aG.className = 'gap-banner filled';
+      document.getElementById('s2aGapLabel').textContent = 'Gap Filled by Growth Earnings';
+      document.getElementById('s2aGapValue').textContent = fmtSigned(Math.abs(gapAfterGrowthMo)) + '/mo surplus';
+      document.getElementById('s2aGapSub').textContent = 'Fixed income and GMIB are bonus';
+    }
+
+    // SECTION 2B: FIXED INVESTMENTS
+    var ir = intSlider.value / 10 / 100;
+    var irPct = (ir * 100).toFixed(1);
+    document.getElementById('intValue').textContent = irPct;
+    var fxG = 0, fxN = 0;
+    FIXED_ACCOUNTS.forEach(function(a) {
+      var g = a.value * ir, n = g * (1 - tb);
+      fxG += g; fxN += n;
+      document.getElementById(a.id + 'Gross').textContent = fmt(g);
+      document.getElementById(a.id + 'Net').textContent = fmt(n);
+      document.getElementById(a.id + 'Mo').textContent = fmt(n / 12);
+      var el = document.getElementById(a.id + 'TaxRate'); if (el) el.textContent = tbPct + '%';
+    });
+    document.getElementById('fixedGross').textContent = fmt(fxG);
+    document.getElementById('fixedNet').textContent = fmt(fxN);
+    document.getElementById('fixedMo').textContent = fmt(fxN / 12);
+    document.getElementById('s2bSummary').textContent = fmt(fxN / 12) + '/mo';
+
+    var wdN = grN + fxN; // total withdrawals for GMIB section
     var remGapYr = gapNetYr - wdN, remGapMo = remGapYr / 12;
     var s2G = document.getElementById('s2Gap');
     if (remGapMo > 1) {
       s2G.className = 'gap-banner has-gap';
-      document.getElementById('s2GapLabel').textContent = 'Remaining Gap After Withdrawals';
+      document.getElementById('s2GapLabel').textContent = 'Remaining Gap After Growth + Fixed Income';
       document.getElementById('s2GapValue').textContent = '\u2212' + fmt(remGapMo) + '/mo';
       document.getElementById('s2GapSub').textContent = 'This is what the Nassau GMIB needs to cover';
     } else {
       s2G.className = 'gap-banner filled';
-      document.getElementById('s2GapLabel').textContent = 'Gap Filled by Withdrawals';
+      document.getElementById('s2GapLabel').textContent = 'Gap Fully Covered by Growth + Fixed Income';
       document.getElementById('s2GapValue').textContent = fmtSigned(Math.abs(remGapMo)) + '/mo surplus';
       document.getElementById('s2GapSub').textContent = 'GMIB is 100% available for estate planning';
     }
+
+    // RUNWAY CALCULATION
+    var annualGapAfterAll = Math.max(0, remGapYr);
+    var runway = annualGapAfterAll > 0 ? RESERVES_LIQUID / annualGapAfterAll : 99;
+    document.getElementById('runwayReserves').textContent = fmt(RESERVES_LIQUID);
+    document.getElementById('runwayYears').textContent = runway >= 99 ? '\u221E' : runway.toFixed(1);
 
     // SECTION 3: GMIB
     var gTax = GMIB_GROSS * tb, gNet = GMIB_GROSS - gTax;
@@ -1294,8 +1415,10 @@
 
   taxSlider.addEventListener('input', updateAll);
   rorSlider.addEventListener('input', updateAll);
+  intSlider.addEventListener('input', updateAll);
   taxSlider.addEventListener('touchstart', function(){}, {passive:true});
   rorSlider.addEventListener('touchstart', function(){}, {passive:true});
+  intSlider.addEventListener('touchstart', function(){}, {passive:true});
   updateAll();
 </script>
 
