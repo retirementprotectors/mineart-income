@@ -1624,20 +1624,6 @@
     gmibOutEl.textContent = needed > 0 ? fmt(needed) + '/yr' : '$0';
     gmibOutEl.className = needed > 0 ? 'section-output-value' : 'section-output-value surplus';
 
-    // SECTION 3: GMIB
-    var gTax = GMIB_GROSS * tb, gNet = GMIB_GROSS - gTax;
-    var needed = Math.max(0, remGapYr), estate = gNet - needed;
-    document.getElementById('gmibTaxPct').textContent = tbPct;
-    document.getElementById('gmibTaxAmt').textContent = '\u2212' + fmt(gTax);
-    document.getElementById('gmibTaxMo').textContent = '\u2212' + fmt(gTax / 12);
-    document.getElementById('gmibNetYr').textContent = fmt(gNet);
-    document.getElementById('gmibNetMo').textContent = fmt(gNet / 12);
-    document.getElementById('gmibNeededYr').textContent = needed > 0 ? '\u2212' + fmt(needed) : '$0';
-    document.getElementById('gmibNeededMo').textContent = needed > 0 ? '\u2212' + fmt(needed / 12) : '$0';
-    document.getElementById('estateAvailYr').textContent = fmt(estate);
-    document.getElementById('estateAvailMo').textContent = fmt(estate / 12);
-    document.getElementById('estateAvailBig').textContent = fmt(estate) + '/yr';
-    document.getElementById('s3Summary').textContent = fmt(estate) + '/yr for estate';
   }
 
   taxSlider.addEventListener('input', updateAll);
