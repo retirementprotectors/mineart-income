@@ -413,29 +413,31 @@
   .slider-panel input[type="range"]::-webkit-slider-thumb { background: var(--rpi-blue); border-color: var(--navy); }
   .slider-panel .slider-range { font-size: 9px; color: rgba(255,255,255,0.4); }
 
-  .dash-layout { display: grid; grid-template-columns: 1fr 280px; gap: 16px; align-items: start; }
-  .dash-main { min-width: 0; }
-  .dash-sidebar { position: sticky; top: 60px; }
-  .output-card {
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: 8px; padding: 14px; margin-bottom: 10px;
-    border-left: 4px solid var(--rpi-blue);
+  .section-output {
+    text-align: right; line-height: 1.1;
   }
-  .output-card.deficit { border-left-color: var(--red); }
-  .output-card.surplus { border-left-color: var(--green); }
-  .output-card-label {
-    font-size: 9px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px;
+  .section-output-value { font-size: 16px; font-weight: 800; color: var(--white); }
+  .section-output-value.deficit { color: #ff8a8a; }
+  .section-output-value.surplus { color: #8affb4; }
+  .section-output-sub { font-size: 9px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+
+  .estate-bottom {
+    background: var(--navy); border-radius: 10px; border: 2px solid var(--rpi-blue);
+    padding: 24px; text-align: center; margin-top: 16px; cursor: pointer;
+    transition: all 0.2s;
   }
-  .output-card-value { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1.1; }
-  .output-card.deficit .output-card-value { color: var(--red); }
-  .output-card.surplus .output-card-value { color: var(--green); }
-  .output-card-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+  .estate-bottom:hover { background: var(--rpi-blue); }
+  .estate-bottom-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--rpi-blue); }
+  .estate-bottom:hover .estate-bottom-label { color: var(--white); }
+  .estate-bottom-value { font-size: 40px; font-weight: 800; color: var(--white); line-height: 1.1; margin-top: 4px; }
+  .estate-bottom-sub { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 6px; }
+  .estate-bottom-cta { font-size: 12px; font-weight: 700; color: var(--rpi-blue); margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .estate-bottom:hover .estate-bottom-cta { color: var(--white); }
 
   @media (max-width: 768px) {
     .slider-panel { grid-template-columns: 1fr; gap: 12px; }
-    .dash-layout { grid-template-columns: 1fr; }
-    .dash-sidebar { position: static; }
+    .section-output-value { font-size: 13px; }
+    .estate-bottom-value { font-size: 28px; }
   }
 
   /* ========== COLLAPSIBLE SECTIONS ========== */
@@ -698,17 +700,17 @@
       </div>
     </div>
 
-    <!-- ===== DASHBOARD: LEFT GRIDS + RIGHT OUTPUTS ===== -->
-    <div class="dash-layout">
-
-      <!-- LEFT: Collapsible Grids -->
-      <div class="dash-main">
+    <!-- ===== FULL-WIDTH SECTIONS WITH INLINE OUTPUTS ===== -->
 
         <!-- SECTION 1: CURRENT INCOME -->
         <div class="collapsible">
           <div class="collapsible-header" onclick="toggleSection(this)">
             <span class="chevron">&#x25BC;</span>
             <span class="section-title-text">Current Retirement Income</span>
+            <div class="section-output">
+              <div class="section-output-value deficit" id="outGapVal">&minus;$6,608/mo</div>
+              <div class="section-output-sub">NET income gap</div>
+            </div>
           </div>
           <div class="collapsible-content">
             <div class="card">
@@ -752,6 +754,10 @@
           <div class="collapsible-header" onclick="toggleSection(this)">
             <span class="chevron">&#x25BC;</span>
             <span class="section-title-text">Potential Earnings (Growth)</span>
+            <div class="section-output">
+              <div class="section-output-value deficit" id="outGrowthGapVal">&minus;$3,438/mo</div>
+              <div class="section-output-sub">remaining gap</div>
+            </div>
           </div>
           <div class="collapsible-content">
             <div class="card">
@@ -797,6 +803,10 @@
           <div class="collapsible-header" onclick="toggleSection(this)">
             <span class="chevron">&#x25BC;</span>
             <span class="section-title-text">Hypothetical Income (Fixed)</span>
+            <div class="section-output">
+              <div class="section-output-value" id="outRunwayVal">10.7 yrs</div>
+              <div class="section-output-sub">reserve runway</div>
+            </div>
           </div>
           <div class="collapsible-content">
             <div class="card">
@@ -860,6 +870,10 @@
           <div class="collapsible-header" onclick="toggleSection(this)">
             <span class="chevron">&#x25BC;</span>
             <span class="section-title-text">Nassau GMIB Allocation</span>
+            <div class="section-output">
+              <div class="section-output-value surplus" id="outGmibNeeded">$24,906/yr</div>
+              <div class="section-output-sub">needed for gap</div>
+            </div>
           </div>
           <div class="collapsible-content">
             <div class="card">
@@ -901,51 +915,13 @@
           </div>
         </div>
 
-      </div>
-
-      <!-- RIGHT: Output Sidebar -->
-      <div class="dash-sidebar">
-
-        <div class="output-card" id="outIncome">
-          <div class="output-card-label">Post-Retirement NET</div>
-          <div class="output-card-value" id="outIncomeVal">$8,780/mo</div>
-          <div class="output-card-sub" id="outIncomeSub">Gap: &minus;$6,608/mo</div>
-        </div>
-
-        <div class="output-card" id="outGrowth">
-          <div class="output-card-label">+ Growth Earnings</div>
-          <div class="output-card-value" id="outGrowthVal">$3,170/mo</div>
-          <div class="output-card-sub" id="outGrowthSub">Remaining gap: &minus;$3,438/mo</div>
-        </div>
-
-        <div class="output-card" id="outFixed">
-          <div class="output-card-label">+ Fixed Income</div>
-          <div class="output-card-value" id="outFixedVal">$1,362/mo</div>
-          <div class="output-card-sub" id="outFixedSub">Remaining gap: &minus;$2,076/mo</div>
-        </div>
-
-        <div class="output-card" id="outGmib">
-          <div class="output-card-label">GMIB Fills Gap</div>
-          <div class="output-card-value" id="outGmibVal">$9,435/mo</div>
-          <div class="output-card-sub" id="outGmibSub">Uses $24,906/yr of GMIB</div>
-        </div>
-
-        <div class="estate-available" style="margin-top:6px;">
-          <div class="estate-available-label">Estate Planning</div>
-          <div class="estate-available-value" id="estateAvailBig">$88,313/yr</div>
-          <div class="estate-available-sub">Available for JH premium</div>
-          <div class="estate-link" onclick="switchTab('estate')">Estate Options &rarr;</div>
-        </div>
-
-        <div class="output-card" style="margin-top:10px; border-left-color:var(--charcoal);">
-          <div class="output-card-label">Reserve Runway (Without GMIB)</div>
-          <div class="output-card-value" id="runwayYears" style="font-size:28px;">2.0</div>
-          <div class="output-card-sub">years on HSA ($50K) alone</div>
-        </div>
-
-      </div>
-
-    </div><!-- end dash-layout -->
+    <!-- ESTATE BANNER: FULL WIDTH BOTTOM -->
+    <div class="estate-bottom" onclick="switchTab('estate')">
+      <div class="estate-bottom-label">Available for Estate Planning</div>
+      <div class="estate-bottom-value" id="estateAvailBig">$88,313/yr</div>
+      <div class="estate-bottom-sub">After filling the income gap and paying taxes on the GMIB</div>
+      <div class="estate-bottom-cta">View Estate Options &rarr;</div>
+    </div>
 
   </div>
 </div>
@@ -1507,11 +1483,11 @@
     document.getElementById('curTotalNet').textContent = fmt(curN / 12);
     document.getElementById('postTotalNet').textContent = fmt(postN / 12);
 
-    // Output card: Income
-    document.getElementById('outIncomeVal').textContent = fmt(postN / 12) + '/mo';
+    // Section 1 output: gap in header
     var gapMo = gapN / 12;
-    document.getElementById('outIncomeSub').textContent = 'Gap: \u2212' + fmt(gapMo) + '/mo';
-    document.getElementById('outIncome').className = 'output-card deficit';
+    var gapEl = document.getElementById('outGapVal');
+    gapEl.textContent = '\u2212' + fmt(gapMo) + '/mo';
+    gapEl.className = 'section-output-value deficit';
 
     // SECTION 2A: GROWTH
     var grG = 0, grN = 0;
@@ -1525,9 +1501,14 @@
     document.getElementById('growthNet').textContent = fmt(grN);
 
     var gapAfterGrowth = gapN - grN;
-    document.getElementById('outGrowthVal').textContent = fmt(grN / 12) + '/mo';
-    document.getElementById('outGrowthSub').textContent = 'Remaining: \u2212' + fmt(Math.max(0, gapAfterGrowth) / 12) + '/mo';
-    document.getElementById('outGrowth').className = gapAfterGrowth > 0 ? 'output-card deficit' : 'output-card surplus';
+    var grOutEl = document.getElementById('outGrowthGapVal');
+    if (gapAfterGrowth > 0) {
+      grOutEl.textContent = '\u2212' + fmt(gapAfterGrowth / 12) + '/mo';
+      grOutEl.className = 'section-output-value deficit';
+    } else {
+      grOutEl.textContent = fmtSigned(Math.abs(gapAfterGrowth) / 12) + '/mo';
+      grOutEl.className = 'section-output-value surplus';
+    }
 
     // SECTION 2B: FIXED
     var fxG = 0, fxN = 0;
@@ -1541,9 +1522,13 @@
     document.getElementById('fixedNet').textContent = fmt(fxN);
 
     var gapAfterAll = gapN - grN - fxN;
-    document.getElementById('outFixedVal').textContent = fmt(fxN / 12) + '/mo';
-    document.getElementById('outFixedSub').textContent = gapAfterAll > 0 ? 'Remaining: \u2212' + fmt(gapAfterAll / 12) + '/mo' : 'Gap filled + ' + fmt(Math.abs(gapAfterAll) / 12) + '/mo surplus';
-    document.getElementById('outFixed').className = gapAfterAll > 0 ? 'output-card deficit' : 'output-card surplus';
+    // Fixed output = Reserve Runway Years
+    // How long can the fixed income principal last covering the remaining gap (if any)
+    var fixedPrincipal = 642000; // total fixed account values
+    var annualGapForRunway = Math.max(0, gapAfterGrowth); // gap BEFORE fixed income, draw from principal
+    var runwayYrs = annualGapForRunway > 0 ? fixedPrincipal / annualGapForRunway : 99;
+    var runwayEl = document.getElementById('outRunwayVal');
+    runwayEl.textContent = runwayYrs >= 99 ? '\u221E yrs' : runwayYrs.toFixed(1) + ' yrs';
 
     // SECTION 3: GMIB
     var gmibTax = GMIB_GROSS * tb;
@@ -1562,14 +1547,10 @@
     document.getElementById('estateAvailMo').textContent = fmt(estate / 12);
     document.getElementById('estateAvailBig').textContent = fmt(estate) + '/yr';
 
-    document.getElementById('outGmibVal').textContent = fmt(gmibNet / 12) + '/mo';
-    document.getElementById('outGmibSub').textContent = needed > 0 ? 'Uses ' + fmt(needed) + '/yr for gap' : 'All available for estate';
-    document.getElementById('outGmib').className = 'output-card surplus';
-
-    // RUNWAY
-    var annualGap = Math.max(0, gapAfterAll);
-    var runway = annualGap > 0 ? RESERVES_LIQUID / annualGap : 99;
-    document.getElementById('runwayYears').textContent = runway >= 99 ? '\u221E' : runway.toFixed(1);
+    // GMIB header output
+    var gmibOutEl = document.getElementById('outGmibNeeded');
+    gmibOutEl.textContent = needed > 0 ? fmt(needed) + '/yr' : '$0';
+    gmibOutEl.className = needed > 0 ? 'section-output-value' : 'section-output-value surplus';
 
     // SECTION 3: GMIB
     var gTax = GMIB_GROSS * tb, gNet = GMIB_GROSS - gTax;
