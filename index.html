@@ -850,9 +850,17 @@
                   <td id="wfNet">$3,026</td>
                   <td id="wfMo">$252</td>
                 </tr>
+                <tr>
+                  <td>RiverSource (Inherited Death Benefit)<br><span class="tax-note tax-free">Life insurance proceeds &mdash; Tax-Free (IRC 101a)</span></td>
+                  <td>$200,000</td>
+                  <td id="rsGross">$8,000</td>
+                  <td class="tax-free">0%</td>
+                  <td id="rsNet" class="tax-free">$8,000</td>
+                  <td id="rsMo" class="tax-free">$667</td>
+                </tr>
                 <tr class="total-row">
                   <td>Fixed Total</td>
-                  <td>$272,000</td>
+                  <td>$472,000</td>
                   <td id="fixedGross">$10,880</td>
                   <td></td>
                   <td id="fixedNet">$8,486</td>
@@ -1152,14 +1160,10 @@
           <div class="reserve-value">$217,000</div>
           <div class="reserve-label">WF Inheritance (Incoming)</div>
         </div>
-        <div class="reserve-item pending">
-          <div class="reserve-value">~$200,000</div>
-          <div class="reserve-label">RiverSource (Pending)</div>
-        </div>
       </div>
       <div class="reserve-total">
         <div class="reserve-total-label">Total Liquid Reserves</div>
-        <div class="reserve-total-value">$840,000+</div>
+        <div class="reserve-total-value">$640,000+</div>
         <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
           Separate from income-generating accounts. This is your cushion.
         </div>
@@ -1230,15 +1234,6 @@
           </div>
         </div>
       </div>
-      <div class="strategy-item">
-        <div class="strategy-rank" style="background:var(--charcoal);">?</div>
-        <div class="strategy-content">
-          <div class="strategy-name">RiverSource &mdash; ~$200,000</div>
-          <div class="strategy-detail">
-            Pending confirmation. Additional upside not yet counted in any projections.
-          </div>
-        </div>
-      </div>
     </div>
 
   </div>
@@ -1289,9 +1284,10 @@
   var FIXED_ACCOUNTS = [
     { id: 'ej', value: 95000, taxable: true },
     { id: 'cd', value: 80000, taxable: true },
-    { id: 'wf', value: 97000, taxable: true } // $217K minus ~$120K Yr1 premium (Option A estimate)
+    { id: 'wf', value: 97000, taxable: true }, // $217K minus ~$120K Yr1 premium (Option A estimate)
+    { id: 'rs', value: 200000, taxable: false } // Inherited death benefit — tax-free IRC 101(a)
   ];
-  var RESERVES_LIQUID = 420000; // Checking $60K + Savings $110K + HSA $50K + RiverSource ~$200K
+  var RESERVES_LIQUID = 220000; // Checking $60K + Savings $110K + HSA $50K (RiverSource now in Fixed)
   var taxSlider = document.getElementById('taxSlider');
   var rorSlider = document.getElementById('rateSlider');
   var intSlider = document.getElementById('intSlider');
