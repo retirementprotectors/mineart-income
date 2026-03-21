@@ -827,6 +827,22 @@
               </thead>
               <tbody>
                 <tr>
+                  <td>Checking #1 + #2<br><span class="tax-note">Joint &mdash; operating cash</span></td>
+                  <td>$60,000</td>
+                  <td id="chkGross">$2,400</td>
+                  <td id="chkTaxRate">22%</td>
+                  <td id="chkNet">$1,872</td>
+                  <td id="chkMo">$156</td>
+                </tr>
+                <tr>
+                  <td>Savings<br><span class="tax-note">Joint &mdash; emergency fund</span></td>
+                  <td>$110,000</td>
+                  <td id="savGross">$4,400</td>
+                  <td id="savTaxRate">22%</td>
+                  <td id="savNet">$3,432</td>
+                  <td id="savMo">$286</td>
+                </tr>
+                <tr>
                   <td>Edward Jones NQ Bonds<br><span class="tax-note">Joint brokerage &mdash; fixed income</span></td>
                   <td>$95,000</td>
                   <td id="ejGross">$3,800</td>
@@ -860,7 +876,7 @@
                 </tr>
                 <tr class="total-row">
                   <td>Fixed Total</td>
-                  <td>$472,000</td>
+                  <td>$642,000</td>
                   <td id="fixedGross">$10,880</td>
                   <td></td>
                   <td id="fixedNet">$8,486</td>
@@ -884,7 +900,7 @@
           <div style="text-align:center; padding:10px;">
             <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted);">If you lived on reserves alone to cover the remaining gap</div>
             <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
-              Liquid reserves (Checking $60K + Savings $110K + HSA $50K + RiverSource ~$200K) = <strong id="runwayReserves">$420,000</strong>
+              HSA reserve = <strong id="runwayReserves">$50,000</strong> (all other cash is earning in Fixed Investments above)
             </div>
             <div style="font-size:48px; font-weight:800; color:var(--navy); margin-top:8px;" id="runwayYears">10.7</div>
             <div style="font-size:14px; font-weight:700; color:var(--rpi-blue); text-transform:uppercase; letter-spacing:1px;">Years of Reserves</div>
@@ -1133,18 +1149,6 @@
       <div class="card-title">Reserve Accounts</div>
       <div class="reserve-grid">
         <div class="reserve-item">
-          <div class="reserve-value">$30,000</div>
-          <div class="reserve-label">Checking #1</div>
-        </div>
-        <div class="reserve-item">
-          <div class="reserve-value">$30,000</div>
-          <div class="reserve-label">Checking #2</div>
-        </div>
-        <div class="reserve-item">
-          <div class="reserve-value">$110,000</div>
-          <div class="reserve-label">Savings</div>
-        </div>
-        <div class="reserve-item">
           <div class="reserve-value">$50,000</div>
           <div class="reserve-label">HSA</div>
         </div>
@@ -1152,18 +1156,10 @@
           <div class="reserve-value">$123,000</div>
           <div class="reserve-label">529 Plan (Grandkids)</div>
         </div>
-        <div class="reserve-item incoming">
-          <div class="reserve-value">$80,000</div>
-          <div class="reserve-label">CDs (Inherited, Maturing May)</div>
-        </div>
-        <div class="reserve-item incoming">
-          <div class="reserve-value">$217,000</div>
-          <div class="reserve-label">WF Inheritance (Incoming)</div>
-        </div>
       </div>
       <div class="reserve-total">
         <div class="reserve-total-label">Total Liquid Reserves</div>
-        <div class="reserve-total-value">$640,000+</div>
+        <div class="reserve-total-value">$173,000</div>
         <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
           Separate from income-generating accounts. This is your cushion.
         </div>
@@ -1183,24 +1179,6 @@
       <div class="strategy-item">
         <div class="strategy-rank" style="background:var(--rpi-blue);">&#x2713;</div>
         <div class="strategy-content">
-          <div class="strategy-name">Checking #1 + #2 &mdash; $60,000</div>
-          <div class="strategy-detail">
-            Operating cash. Bills, day-to-day expenses. Always accessible.
-          </div>
-        </div>
-      </div>
-      <div class="strategy-item">
-        <div class="strategy-rank" style="background:var(--rpi-blue);">&#x2713;</div>
-        <div class="strategy-content">
-          <div class="strategy-name">Savings &mdash; $110,000</div>
-          <div class="strategy-detail">
-            Emergency fund. 12+ months of household expenses covered.
-          </div>
-        </div>
-      </div>
-      <div class="strategy-item">
-        <div class="strategy-rank" style="background:var(--rpi-blue);">&#x2713;</div>
-        <div class="strategy-content">
           <div class="strategy-name">HSA &mdash; $50,000</div>
           <div class="strategy-detail">
             Healthcare expenses. Triple tax advantage. Grows tax-free, withdraws tax-free for medical.
@@ -1213,24 +1191,6 @@
           <div class="strategy-name">529 Plan &mdash; $123,000</div>
           <div class="strategy-detail">
             Earmarked for grandchildren's education. Not part of retirement income.
-          </div>
-        </div>
-      </div>
-      <div class="strategy-item">
-        <div class="strategy-rank" style="background:var(--rpi-blue);">&#x2713;</div>
-        <div class="strategy-content">
-          <div class="strategy-name">CDs (Inherited) &mdash; $80,000</div>
-          <div class="strategy-detail">
-            Several small CDs maturing May 2026 from Joyce's mother. Will convert to cash upon maturity.
-          </div>
-        </div>
-      </div>
-      <div class="strategy-item">
-        <div class="strategy-rank" style="background:var(--rpi-blue);">&#x2713;</div>
-        <div class="strategy-content">
-          <div class="strategy-name">WF Inheritance &mdash; $217,000</div>
-          <div class="strategy-detail">
-            Arriving next week. Bridges Year 1 JH premium under any option. Remainder stays in reserves.
           </div>
         </div>
       </div>
@@ -1282,12 +1242,15 @@
   ];
   // Fixed accounts (interest rate)
   var FIXED_ACCOUNTS = [
+    { id: 'chk', value: 60000, taxable: true },
+    { id: 'sav', value: 110000, taxable: true },
     { id: 'ej', value: 95000, taxable: true },
     { id: 'cd', value: 80000, taxable: true },
     { id: 'wf', value: 97000, taxable: true }, // $217K minus ~$120K Yr1 premium (Option A estimate)
     { id: 'rs', value: 200000, taxable: false } // Inherited death benefit — tax-free IRC 101(a)
   ];
-  var RESERVES_LIQUID = 220000; // Checking $60K + Savings $110K + HSA $50K (RiverSource now in Fixed)
+  var FIXED_TOTAL_VALUE = 642000;
+  var RESERVES_LIQUID = 50000; // HSA only (everything else is now earning in Fixed)
   var taxSlider = document.getElementById('taxSlider');
   var rorSlider = document.getElementById('rateSlider');
   var intSlider = document.getElementById('intSlider');
