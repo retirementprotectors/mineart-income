@@ -38,7 +38,7 @@
   /* ========== HEADER ========== */
   .site-header {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-    padding: 24px 20px 18px;
+    padding: 16px 20px 12px;
     text-align: center;
     position: relative;
   }
@@ -51,10 +51,10 @@
     text-transform: uppercase; color: var(--rpi-blue); margin-bottom: 4px;
   }
   .site-header h1 {
-    font-size: 22px; font-weight: 800; color: var(--white); line-height: 1.2;
+    font-size: 20px; font-weight: 800; color: var(--white); line-height: 1.2;
   }
   .header-client {
-    font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.75); margin-top: 6px;
+    font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); margin-top: 4px;
   }
 
   /* ========== TAB BAR ========== */
@@ -66,16 +66,16 @@
   }
   .tab-btn {
     flex: 1;
-    padding: 14px 8px;
+    padding: 10px 8px;
     background: none; border: none;
     color: rgba(255,255,255,0.55);
     font-family: 'Inter', sans-serif;
-    font-size: 12px; font-weight: 700;
+    font-size: 11px; font-weight: 700;
     text-transform: uppercase; letter-spacing: 1px;
     cursor: pointer;
-    border-bottom: 3px solid transparent;
+    border-bottom: 2px solid transparent;
     transition: all 0.2s ease;
-    min-height: 48px;
+    min-height: 40px;
     display: flex; align-items: center; justify-content: center;
     gap: 6px;
   }
@@ -402,12 +402,12 @@
   /* ========== DASHBOARD LAYOUT ========== */
   .slider-panel {
     background: var(--navy); border-radius: 10px;
-    padding: 16px 20px; margin-bottom: 16px;
-    display: grid; grid-template-columns: auto repeat(3, 1fr); gap: 16px;
+    padding: 12px 16px; margin-bottom: 10px;
+    display: grid; grid-template-columns: auto repeat(3, 1fr); gap: 12px;
   }
   .slider-panel .slider-cell { text-align: center; }
-  .slider-panel .slider-cell .rate-display { font-size: 32px; color: var(--white); }
-  .slider-panel .slider-cell .rate-display span { font-size: 20px; }
+  .slider-panel .slider-cell .rate-display { font-size: 26px; color: var(--white); }
+  .slider-panel .slider-cell .rate-display span { font-size: 16px; }
   .slider-panel .slider-cell .rate-label { font-size: 9px; color: var(--rpi-blue); margin-bottom: 6px; }
   .slider-panel input[type="range"] { background: rgba(255,255,255,0.15); }
   .slider-panel input[type="range"]::-webkit-slider-thumb { background: var(--rpi-blue); border-color: var(--navy); }
@@ -476,10 +476,10 @@
   }
 
   /* ========== COLLAPSIBLE SECTIONS ========== */
-  .collapsible { margin-bottom: 16px; }
+  .collapsible { margin-bottom: 8px; }
   .collapsible-header {
     display: flex; align-items: center; gap: 10px;
-    padding: 14px 18px; background: var(--navy); border-radius: 8px;
+    padding: 10px 14px; background: var(--navy); border-radius: 6px;
     cursor: pointer; user-select: none;
   }
   .collapsible-header .chevron {
@@ -488,13 +488,13 @@
   }
   .collapsible-header.collapsed .chevron { transform: rotate(-90deg); }
   .collapsible-header .section-title-text {
-    flex: 1; font-size: 14px; font-weight: 800; color: var(--white);
+    flex: 1; font-size: 12px; font-weight: 800; color: var(--white);
     text-transform: uppercase; letter-spacing: 1px;
   }
   .collapsible-header .section-summary {
     font-size: 14px; font-weight: 700; color: var(--rpi-blue);
   }
-  .collapsible-content { padding-top: 12px; }
+  .collapsible-content { padding-top: 8px; }
   .collapsible-header.collapsed + .collapsible-content { display: none; }
 
   /* ========== TAX INFO BAR ========== */
